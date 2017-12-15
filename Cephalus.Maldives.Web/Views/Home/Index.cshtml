@@ -1,0 +1,22 @@
+﻿@model Cephalus.Maldives.Web.Models.CustomersModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <p class="lead">Your clients</p>
+</div>
+
+<div id="filterPanel">
+    @Html.ListBoxFor()
+</div>
+
+<div id="customerListContainer">
+    @Html.Partial("~/Views/Home/Partials/_Customers.cshtml", Model)
+</div>
+
+<input type="button" value="Refresh Customer View" id="refreshCustomerView" />
+
+@section scripts {
+    @Scripts.Render("~/bundles/Customers")
+}
