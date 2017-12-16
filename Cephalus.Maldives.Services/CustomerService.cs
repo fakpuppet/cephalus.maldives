@@ -27,5 +27,12 @@ namespace Cephalus.Maldives.Services
 
             return _customerRepository.GetByTags(tagCollection);
         }
+
+        public IEnumerable<Customer> GetByTags(IEnumerable<TagType> tagType)
+        {
+            var tagTypeCollection = tagType?.Any() == true ? tagType : Enumerable.Empty<TagType>();
+
+            return _customerRepository.GetByTags(tagType);
+        }
     }
 }

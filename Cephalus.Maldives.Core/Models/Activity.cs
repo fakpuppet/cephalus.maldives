@@ -4,7 +4,7 @@
     {
         public override string Display()
         {
-            throw new System.NotImplementedException();
+            return Name;
         }
     }
 }

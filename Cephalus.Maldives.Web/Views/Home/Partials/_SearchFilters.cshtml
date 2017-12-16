@@ -1,0 +1,14 @@
+﻿@model Cephalus.Maldives.Web.Models.CustomersModel
+
+<div class="jumbotron">
+    <table>
+        <tr>
+            <td>
+        @Html.ListBox("TagType", EnumHelper.GetSelectList(typeof(Cephalus.Maldives.Core.Models.TagType)), new { id = "tagType" })
+            </td>
+            <td>
+    <input type="button" value="Refresh Customer View" id="refreshCustomerView" />
+            </td>
+        </tr>
+    </table>
+</div>

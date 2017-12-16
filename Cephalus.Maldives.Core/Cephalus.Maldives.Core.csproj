@@ -57,7 +57,7 @@
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\Religion.cs" />
     <Compile Include="Models\Tag.cs" />
-    <Compile Include="Models\TagChildType.cs" />
+    <Compile Include="Models\TagType.cs" />
     <Compile Include="Models\WatchBrand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ICustomerService.cs" />

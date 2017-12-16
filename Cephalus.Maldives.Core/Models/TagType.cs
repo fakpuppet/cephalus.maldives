@@ -1,8 +1,9 @@
 ﻿namespace Cephalus.Maldives.Core.Models
 {
-    public enum TagChildType
+    public enum TagType
     {
-        Customer = 0,
+        Generic = 0,
+        Customer,
         Country,
         Activity,
         Ethnicity,

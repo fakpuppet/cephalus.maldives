@@ -1,10 +1,16 @@
-﻿using System;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Cephalus.Maldives.DAL.Sql.Dto
 {
+    [Table("Country")]
     public class CountryDto : TagDto
     {
-        public string Name { get; set; }
+        public override TagTypeDto TagType { get; set; }
+
+        public CountryDto()
+        {
+            TagType = TagTypeDto.Country;
+        }
 
         public override string Display()
         {

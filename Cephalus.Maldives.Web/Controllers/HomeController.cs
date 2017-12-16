@@ -1,4 +1,5 @@
-﻿using Cephalus.Maldives.Core.Services;
+﻿using Cephalus.Maldives.Core.Models;
+using Cephalus.Maldives.Core.Services;
 using Cephalus.Maldives.DAL.Sql;
 using Cephalus.Maldives.Services;
 using Cephalus.Maldives.Web.Models;
@@ -27,7 +28,7 @@ namespace Cephalus.Maldives.Web.Controllers
         {
             var model = new CustomersModel
             {
-                Customers = _customerService.GetByTags(new[] { Guid.Parse("0421FA89-4C4C-4385-856B-7F3155C9BE3C") })
+                Customers = _customerService.GetByTags(new[] { TagType.Country, TagType.Ethnicity, TagType.Beverage })
             };
 
             return View(model);
@@ -39,6 +40,17 @@ namespace Cephalus.Maldives.Web.Controllers
             var model = new CustomersModel
             {
                 Customers = _customerService.GetByTags(guids)
+            };
+
+            return PartialView("~/Views/Home/Partials/_Customers.cshtml", model);
+        }
+
+        [HttpPost]
+        public ActionResult GetCustomersByTagType(TagType[] tagTypes)
+        {
+            var model = new CustomersModel
+            {
+                Customers = _customerService.GetByTags(tagTypes)
             };
 
             return PartialView("~/Views/Home/Partials/_Customers.cshtml", model);

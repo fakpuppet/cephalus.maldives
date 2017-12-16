@@ -15,63 +15,92 @@ namespace Cephalus.Maldives.DAL.Sql
         public CustomerRepository(string connectionString)
         {
             _connectionString = connectionString;
-            // CreateDummyData();
+            CreateDummyData();
         }
 
         public void CreateDummyData()
         {
             using (var context = new MaldivesContext(_connectionString))
             {
-                var country = new CountryDto()
+                for (int i = 0; i < 8; i++)
                 {
-                     Name = "Sri Lanka",
-                     TagId = Guid.NewGuid()
-                };
-                var ethnicity = new EthnicityDto()
-                {
-                    Name = "Zoroastrian",
-                    TagId = Guid.NewGuid()
-                };
-                var customrer = new CustomerDto()
-                {
-                    BirthDate = DateTime.Now.AddYears(-54),
-                    CustomerId = Guid.NewGuid(),
-                    CustomerNumber = "HY398YFKK07",
-                    Tags = new List<TagDto>() { ethnicity, country }
-                };
+                    var country = new CountryDto()
+                    {
+                        Name = $"Sri Lanka {i}",
+                        TagId = Guid.NewGuid()
+                    };
+                    var ethnicity = new EthnicityDto()
+                    {
+                        Name = "Zoroastrian",
+                        TagId = Guid.NewGuid()
+                    };
+                    var watchBrand = new WatchBrandDto()
+                    {
+                        Name = "Panerai",
+                        TagId = Guid.NewGuid()
+                    };
+                    var activity = new ActivityDto()
+                    {
+                        Activities = new List<string>() { "Hiking", "Cycling", "Skiing"},
+                        TagId = Guid.NewGuid()
+                    };
+                    var customrer = new CustomerDto()
+                    {
+                        BirthDate = DateTime.Now.AddYears(-54 + i),
+                        CustomerId = Guid.NewGuid(),
+                        CustomerNumber = $"HY398{i}FKK07",
+                        Tags = new List<TagDto>() { ethnicity, country, watchBrand, activity }
+                    };
 
-                context.Entry(ethnicity).State = System.Data.Entity.EntityState.Added;
-                context.Entry(country).State = System.Data.Entity.EntityState.Added;
-                context.Entry(customrer).State = System.Data.Entity.EntityState.Added;
+                    context.Entry(ethnicity).State = System.Data.Entity.EntityState.Added;
+                    context.Entry(country).State = System.Data.Entity.EntityState.Added;
+                    context.Entry(activity).State = System.Data.Entity.EntityState.Added;
+                    context.Entry(watchBrand).State = System.Data.Entity.EntityState.Added;
+                    context.Entry(customrer).State = System.Data.Entity.EntityState.Added;
+                }
                 context.SaveChanges();
             }
         }
 
         public Customer Get(string customerNumber)
         {
-            using (var context = new MaldivesContext(_connectionString))
+            return ExecuteOnContext(context =>
             {
                 return context.Customers
                     .Where(c => c.CustomerNumber == customerNumber)
-                    .Select(c => ConvertToCustomer(c))
+                    .Select(c => ConvertFromDto(c))
                     .FirstOrDefault();
-            }
+            });
         }
 
         public Customer Get(Guid id)
         {
-            using (var context = new MaldivesContext(_connectionString))
+            return ExecuteOnContext(context =>
             {
                 var customer = context.Customers
                     .FirstOrDefault(c => c.CustomerId == id);
 
-                return ConvertToCustomer(customer);
-            }
+                return ConvertFromDto(customer);
+            });
+        }
+
+        public IEnumerable<Customer> GetByTags(IEnumerable<TagType> tagTypes)
+        {
+            return ExecuteOnContext(context =>
+            {
+                var tagTypeDtos = tagTypes.Select(t => (int)t);
+                var customers = context.Customers
+                    .Include("Tags")
+                    .Where(c => c.Tags.Select(t => (int)t.TagType).Intersect(tagTypeDtos).Any())
+                    .ToArray();
+
+                return customers.Select(c => ConvertFromDto(c));
+            });
         }
 
         public IEnumerable<Customer> GetByTags(IEnumerable<Tag> tags)
         {
-            using (var context = new MaldivesContext(_connectionString))
+            return ExecuteOnContext(context =>
             {
                 Func<CustomerDto, bool> whereSelector;
 
@@ -87,13 +116,13 @@ namespace Cephalus.Maldives.DAL.Sql
                 var customers = context.Customers
                     .Where(whereSelector).ToArray();
 
-                return customers.Select(c => ConvertToCustomer(c));
-            }
+                return customers.Select(c => ConvertFromDto(c));
+            });
         }
 
         public IEnumerable<Customer> GetByTags(IEnumerable<Guid> tagIds)
         {
-            using (var context = new MaldivesContext(_connectionString))
+            return ExecuteOnContext(context =>
             {
                 Func<CustomerDto, bool> whereSelector;
 
@@ -109,43 +138,38 @@ namespace Cephalus.Maldives.DAL.Sql
                 var customers = context.Customers
                     .Where(whereSelector).ToArray();
 
-                return customers.Select(c => ConvertToCustomer(c)).ToArray();
-            }
+                return customers.Select(c => ConvertFromDto(c)).ToArray();
+            });
         }
 
-        public void AddSomeShit()
+        public IEnumerable<Customer> GetByTagType(Type tagType)
+        {
+            return ExecuteOnContext(context =>
+            {
+                return context.Customers.Where(c => true).Select(c => ConvertFromDto(c));
+            });
+        }
+
+        private T ExecuteOnContext<T>(Func<MaldivesContext, T> function)
         {
             using (var context = new MaldivesContext(_connectionString))
             {
-
-                EthnicityDto ethnicityDto = new EthnicityDto() { Name = "Somali", TagId = Guid.NewGuid() };
-
-                var customer = new CustomerDto()
-                {
-                    BirthDate = DateTime.Now.AddYears(-49),
-                    CustomerId = Guid.NewGuid(),
-                    CustomerNumber = "JJEI395NG77",
-                    Tags = new List<TagDto>() { ethnicityDto }
-                };
-
-                context.Entry(ethnicityDto).State = System.Data.Entity.EntityState.Added;
-                context.Entry(customer).State = System.Data.Entity.EntityState.Added;
-                context.SaveChanges();
+                return function(context);
             }
         }
 
         private Customer Get(Expression<Func<CustomerDto, bool>> predicate)
         {
-            using (var context = new MaldivesContext(_connectionString))
+            return ExecuteOnContext(context =>
             {
                 var customer = context.Customers
                     .FirstOrDefault(predicate);
 
-                return ConvertToCustomer(customer);
-            }
+                return ConvertFromDto(customer);
+            });
         }
 
-        private Customer ConvertToCustomer(CustomerDto dto)
+        private Customer ConvertFromDto(CustomerDto dto)
         {
             return new Customer()
             {
@@ -158,8 +182,11 @@ namespace Cephalus.Maldives.DAL.Sql
         private Tag ConvertTagFromDto(TagDto dto)
         {
             return TagFactory.TagFromDto(dto);
+        }
 
-            throw new ArgumentException("cannot have this type mapped");
+        private TagTypeDto FromTagType(TagType tagType)
+        {
+            return (TagTypeDto)tagType;
         }
     }
 }

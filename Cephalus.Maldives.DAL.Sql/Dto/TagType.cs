@@ -2,7 +2,8 @@
 {
     public enum TagTypeDto
     {
-        Customer = 0,
+        Generic = 0,
+        Customer,
         Country,
         Activity,
         Ethnicity,

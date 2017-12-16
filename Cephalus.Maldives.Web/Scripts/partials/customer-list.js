@@ -3,15 +3,17 @@ CustomerPartial = function () {
     return {
         Init: function () {
             $(document).on("click", "#refreshCustomerView", function () {
-                CustomerPartial.GetCustomers();
+                var tagTypes = $("#tagType").val();
+
+                CustomerPartial.GetCustomersByTagType(tagTypes);
             });
         },
 
-        GetCustomers: function () {
+        GetCustomersByTagType: function (tagTypes) {
             DataService.MakeAjaxCall(
-                ["4f38fb0c-906e-4dbb-9202-1bcccdf59ae3"],
+                { tagTypes: tagTypes },
                 "POST",
-                "/Home/GetCustomers",
+                "/Home/GetCustomersByTagType",
                 function (data) {
                     $("#customerListContainer").html(data);
                 },

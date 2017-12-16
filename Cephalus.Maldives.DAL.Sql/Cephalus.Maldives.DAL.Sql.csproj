@@ -54,10 +54,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomerRepository.cs" />
+    <Compile Include="Dto\ActivityDto.cs" />
     <Compile Include="Dto\CountryDto.cs" />
     <Compile Include="Dto\EthnicityDto.cs" />
     <Compile Include="Dto\TagFactory.cs" />
     <Compile Include="Dto\TagType.cs" />
+    <Compile Include="Dto\WatchBrandDto.cs" />
     <Compile Include="MaldivesContext.cs" />
     <Compile Include="Dto\CustomerDto.cs" />
     <Compile Include="Dto\TagDto.cs" />

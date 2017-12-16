@@ -10,6 +10,8 @@ namespace Cephalus.Maldives.Core.Models
 
         public long CustomerId { get; set; }
 
+        public string Name { get; set; }
+
         public abstract string Display();
     }
 }
