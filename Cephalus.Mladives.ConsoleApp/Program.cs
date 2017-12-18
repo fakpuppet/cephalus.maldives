@@ -1,4 +1,5 @@
-﻿using Cephalus.Maldives.DAL.Sql;
+﻿using Cephalus.Maldives.Core.Models;
+using Cephalus.Maldives.DAL.Sql;
 using Cephalus.Maldives.Services;
 using System;
 using System.Linq;
@@ -12,11 +13,11 @@ namespace Cephalus.Mladives.ConsoleApp
         static void Main(string[] args)
         {
             var customerService = new CustomerService(new CustomerRepository(Connection));
-            var customers = customerService.GetByTags(new[] { Guid.Parse("0421FA89-4C4C-4385-856B-7F3155C9BE3C") }).ToArray();
+            var customers = customerService.GetByTags(new[] { TagType.Country });
 
-            foreach (var c in customers)
+            foreach (var cust in customers)
             {
-                Console.WriteLine($"{c.CustomerNumber}-{c.BirthDate?.ToString("dd.MM.yyyy")} With tags {string.Join(", ", c.Tags.Select(t => t.TagId))}");
+                Console.WriteLine(string.Join(",", cust.Tags?.Select(t => t.Display()) ?? new[] { "Nothing" }));
             }
 
             Console.WriteLine("Done");

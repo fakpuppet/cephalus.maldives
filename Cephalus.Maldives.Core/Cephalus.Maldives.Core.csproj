@@ -56,6 +56,7 @@
     <Compile Include="Models\Food.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\Religion.cs" />
+    <Compile Include="Models\SpecificActivity.cs" />
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\TagType.cs" />
     <Compile Include="Models\WatchBrand.cs" />

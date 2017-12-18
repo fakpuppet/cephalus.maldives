@@ -5,8 +5,6 @@ namespace Cephalus.Maldives.DAL.Sql.Dto
     [Table("Ethnicity")]
     public class EthnicityDto : TagDto
     {
-        public override TagTypeDto TagType { get; set; }
-
         public EthnicityDto()
         {
             TagType = TagTypeDto.Ethnicity;

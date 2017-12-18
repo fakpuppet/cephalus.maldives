@@ -35,17 +35,6 @@ namespace Cephalus.Maldives.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult GetCustomers(Guid[] guids)
-        {
-            var model = new CustomersModel
-            {
-                Customers = _customerService.GetByTags(guids)
-            };
-
-            return PartialView("~/Views/Home/Partials/_Customers.cshtml", model);
-        }
-
-        [HttpPost]
         public ActionResult GetCustomersByTagType(TagType[] tagTypes)
         {
             var model = new CustomersModel

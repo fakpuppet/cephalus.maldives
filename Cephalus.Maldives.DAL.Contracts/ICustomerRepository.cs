@@ -10,9 +10,9 @@ namespace Cephalus.Maldives.DAL.Contracts
 
         Customer Get(Guid id);
 
-        IEnumerable<Customer> GetByTags(IEnumerable<Tag> tags);
+        //IEnumerable<Customer> GetByTags(IEnumerable<Tag> tags);
 
-        IEnumerable<Customer> GetByTags(IEnumerable<Guid> tagIds);
+        //IEnumerable<Customer> GetByTags(IEnumerable<Guid> tagIds);
 
         IEnumerable<Customer> GetByTags(IEnumerable<TagType> tagTypes);
     }

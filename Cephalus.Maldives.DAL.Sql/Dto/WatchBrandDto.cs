@@ -2,7 +2,10 @@
 {
     public class WatchBrandDto : TagDto
     {
-        public override TagTypeDto TagType { get => TagTypeDto.WatchBrand; }
+        public WatchBrandDto()
+        {
+            TagType = TagTypeDto.WatchBrand;
+        }
 
         public override string Display()
         {

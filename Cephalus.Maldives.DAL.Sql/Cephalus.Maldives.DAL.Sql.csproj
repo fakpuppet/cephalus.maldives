@@ -57,6 +57,7 @@
     <Compile Include="Dto\ActivityDto.cs" />
     <Compile Include="Dto\CountryDto.cs" />
     <Compile Include="Dto\EthnicityDto.cs" />
+    <Compile Include="Dto\SpecificActivityDto.cs" />
     <Compile Include="Dto\TagFactory.cs" />
     <Compile Include="Dto\TagType.cs" />
     <Compile Include="Dto\WatchBrandDto.cs" />

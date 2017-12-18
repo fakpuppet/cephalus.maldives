@@ -4,11 +4,13 @@
     <table>
 @{
     foreach (var item in Model.Customers)
-    {   
+    {
+        var tags = item.Tags?.Select(t => t.Display()) ?? Enumerable.Empty<string>();
+
         <tr>
             <td style="padding: 5px"><a href="#">Client - @item.CustomerNumber.ToUpper()</a></td>
             <td style="padding: 5px">Birthday: @(item.BirthDate?.ToString("dd.MM.yyyy"))</td>
-            <td style="padding: 5px">@(string.Join(", ", item.Tags?.Select(t => t.Display()))) </td>
+            <td style="padding: 5px">@(string.Join(", ", tags)) </td>
         </tr>
     }
 }

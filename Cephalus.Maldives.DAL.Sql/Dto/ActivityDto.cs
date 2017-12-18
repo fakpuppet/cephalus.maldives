@@ -1,16 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace Cephalus.Maldives.DAL.Sql.Dto
 {
     [Table("Activity")]
     public class ActivityDto : TagDto
     {
-        public virtual ICollection<string> Activities { get; set; }
+        public virtual ICollection<SpecificActivityDto> Activities { get; set; }
 
-        public override string Display()
+        public ActivityDto()
         {
-            return string.Join(", ", Activities);
+            TagType = TagTypeDto.Activity;
         }
+
+        public override string Display() => string.Join(", ", Activities.Select(a => a.Name));
     }
 }

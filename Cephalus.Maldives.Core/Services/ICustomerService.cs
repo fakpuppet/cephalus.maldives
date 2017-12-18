@@ -8,8 +8,6 @@ namespace Cephalus.Maldives.Core.Services
     {
         Customer Get(Guid id);
 
-        IEnumerable<Customer> GetByTags(Guid[] tagIds);
-
         IEnumerable<Customer> GetByTags(IEnumerable<TagType> tagType);
     }
 }

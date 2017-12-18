@@ -9,9 +9,11 @@ namespace Cephalus.Maldives.DAL.Sql
 
         public DbSet<TagDto> Tags { get; set; }
 
+        public DbSet<SpecificActivityDto> SpecificActivities { get; set; }
+
         static MaldivesContext()
         {
-            //Database.SetInitializer(new DropCreateDatabaseAlways<MaldivesContext>());
+            Database.SetInitializer(new DropCreateDatabaseAlways<MaldivesContext>());
         }
 
         public MaldivesContext(string connectionString) 
@@ -24,7 +26,8 @@ namespace Cephalus.Maldives.DAL.Sql
             modelBuilder.Entity<CustomerDto>()
                 .ToTable("Customer")
                 .HasKey(e => e.Id)
-                .HasMany(e => e.Tags);
+                .HasMany(e => e.Tags)   
+                .WithMany();
 
             modelBuilder.Entity<EthnicityDto>()
                 .ToTable("Ethnicity");
@@ -36,7 +39,11 @@ namespace Cephalus.Maldives.DAL.Sql
                 .ToTable("WatchBrand");
 
             modelBuilder.Entity<ActivityDto>()
-                .ToTable("Activity");
+                .ToTable("Activity")
+                .HasMany(e => e.Activities);
+
+            modelBuilder.Entity<SpecificActivityDto>()
+                .ToTable("SpecificActivity");
         }
     }
 }

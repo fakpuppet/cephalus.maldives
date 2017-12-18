@@ -10,11 +10,9 @@ namespace Cephalus.Maldives.DAL.Sql.Dto
 
         public Guid TagId { get; set; }
 
-        public long CustomerId { get; set; }
+        public TagTypeDto TagType { get; set; }
 
-        public virtual TagTypeDto TagType { get; set; }
-
-        public virtual string Name { get; set; }
+        public string Name { get; set; }
 
         public abstract string Display();
     }

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Data.Entity;
 
 namespace Cephalus.Maldives.DAL.Sql
 {
@@ -39,38 +40,38 @@ namespace Cephalus.Maldives.DAL.Sql
                         Name = "Panerai",
                         TagId = Guid.NewGuid()
                     };
+
+                    var hiking = new SpecificActivityDto() { Name = "Hiking" };
+                    var cycling = new SpecificActivityDto() { Name = "Cycling" };
+                    var jerking = new SpecificActivityDto() { Name = "Jerking" };
+
                     var activity = new ActivityDto()
                     {
-                        Activities = new List<string>() { "Hiking", "Cycling", "Skiing"},
+                        Activities = new List<SpecificActivityDto>() { hiking, cycling, jerking, },
                         TagId = Guid.NewGuid()
                     };
-                    var customrer = new CustomerDto()
+                    var customer = new CustomerDto()
                     {
                         BirthDate = DateTime.Now.AddYears(-54 + i),
                         CustomerId = Guid.NewGuid(),
                         CustomerNumber = $"HY398{i}FKK07",
-                        Tags = new List<TagDto>() { ethnicity, country, watchBrand, activity }
+                        Tags = new List<TagDto>() { ethnicity, country, watchBrand, /*activity*/ }
                     };
 
-                    context.Entry(ethnicity).State = System.Data.Entity.EntityState.Added;
-                    context.Entry(country).State = System.Data.Entity.EntityState.Added;
-                    context.Entry(activity).State = System.Data.Entity.EntityState.Added;
-                    context.Entry(watchBrand).State = System.Data.Entity.EntityState.Added;
-                    context.Entry(customrer).State = System.Data.Entity.EntityState.Added;
+                    context.Entry(ethnicity).State = EntityState.Added;
+                    context.Entry(country).State = EntityState.Added;
+
+                    context.Entry(activity).State = EntityState.Added;
+
+                    context.Entry(hiking).State = EntityState.Added;
+                    context.Entry(cycling).State = EntityState.Added;
+                    context.Entry(jerking).State = EntityState.Added;
+
+                    context.Entry(watchBrand).State = EntityState.Added;
+                    context.Entry(customer).State = EntityState.Added;
                 }
                 context.SaveChanges();
             }
-        }
-
-        public Customer Get(string customerNumber)
-        {
-            return ExecuteOnContext(context =>
-            {
-                return context.Customers
-                    .Where(c => c.CustomerNumber == customerNumber)
-                    .Select(c => ConvertFromDto(c))
-                    .FirstOrDefault();
-            });
         }
 
         public Customer Get(Guid id)
@@ -84,61 +85,26 @@ namespace Cephalus.Maldives.DAL.Sql
             });
         }
 
+        public Customer Get(string customerNumber)
+        {
+            return ExecuteOnContext(context =>
+            {
+                return context.Customers
+                    .Where(c => c.CustomerNumber == customerNumber)
+                    .Select(c => ConvertFromDto(c))
+                    .FirstOrDefault();
+            });
+        }
+
         public IEnumerable<Customer> GetByTags(IEnumerable<TagType> tagTypes)
         {
             return ExecuteOnContext(context =>
             {
                 var tagTypeDtos = tagTypes.Select(t => (int)t);
                 var customers = context.Customers
-                    .Include("Tags")
-                    .Where(c => c.Tags.Select(t => (int)t.TagType).Intersect(tagTypeDtos).Any())
-                    .ToArray();
+                    .Where(c => true);
 
-                return customers.Select(c => ConvertFromDto(c));
-            });
-        }
-
-        public IEnumerable<Customer> GetByTags(IEnumerable<Tag> tags)
-        {
-            return ExecuteOnContext(context =>
-            {
-                Func<CustomerDto, bool> whereSelector;
-
-                if (!tags.Any())
-                {
-                    whereSelector = c => true;
-                }
-                else
-                {
-                    whereSelector = c => c.Tags?.Select(t => t.TagId).Intersect(tags.Select(t => t.TagId)).Any() == true;
-                }
-
-                var customers = context.Customers
-                    .Where(whereSelector).ToArray();
-
-                return customers.Select(c => ConvertFromDto(c));
-            });
-        }
-
-        public IEnumerable<Customer> GetByTags(IEnumerable<Guid> tagIds)
-        {
-            return ExecuteOnContext(context =>
-            {
-                Func<CustomerDto, bool> whereSelector;
-
-                if (!tagIds.Any())
-                {
-                    whereSelector = c => true;
-                }
-                else
-                {
-                    whereSelector = c => c.Tags?.Select(t => t.TagId).Intersect(tagIds).Any() == true;
-                }
-
-                var customers = context.Customers
-                    .Where(whereSelector).ToArray();
-
-                return customers.Select(c => ConvertFromDto(c)).ToArray();
+                return customers.ToArray().Select(c => ConvertFromDto(c));
             });
         }
 
@@ -154,6 +120,9 @@ namespace Cephalus.Maldives.DAL.Sql
         {
             using (var context = new MaldivesContext(_connectionString))
             {
+                context.Configuration.ProxyCreationEnabled = false;
+                context.Configuration.LazyLoadingEnabled = false;
+
                 return function(context);
             }
         }
@@ -175,7 +144,7 @@ namespace Cephalus.Maldives.DAL.Sql
             {
                 CustomerNumber = dto.CustomerNumber,
                 BirthDate = dto.BirthDate,
-                Tags = dto.Tags.Select(t => ConvertTagFromDto(t))
+                Tags = dto.Tags?.Select(t => ConvertTagFromDto(t))
             };
         }
 
