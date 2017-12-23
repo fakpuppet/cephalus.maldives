@@ -139,16 +139,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionFilters\AjaxOnlyAttribute.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Converters\CustomerConverter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ListHelpers.cs" />
+    <Compile Include="Models\AddCustomerModel.cs" />
+    <Compile Include="Models\AlertingModelBase.cs" />
+    <Compile Include="Models\AlertType.cs" />
     <Compile Include="Models\CustomerSearchModel.cs" />
     <Compile Include="Models\CustomersModel.cs" />
+    <Compile Include="Models\IAlertingModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -187,6 +193,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\services\data-service.js" />
+    <Content Include="Scripts\util\helpers\form-helper.js" />
     <Content Include="Scripts\util\helpers\selectric-binder.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -199,8 +206,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Customer.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Partials\_Customers.cshtml" />
     <Content Include="Views\Home\Partials\_SearchFilters.cshtml" />

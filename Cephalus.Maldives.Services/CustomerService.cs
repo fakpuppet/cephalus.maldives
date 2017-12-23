@@ -16,6 +16,11 @@ namespace Cephalus.Maldives.Services
             _customerRepository = customerRepository;
         }
 
+        public void Create(Customer customer)
+        {
+            _customerRepository.Create(customer);
+        }
+
         public Customer Get(Guid id)
         {
             return _customerRepository.Get(id);

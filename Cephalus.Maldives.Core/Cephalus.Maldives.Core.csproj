@@ -46,7 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\CreateCustomerException.cs" />
     <Compile Include="Interfaces\IAddressModel.cs" />
+    <Compile Include="Interfaces\ICollectionTag.cs" />
     <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Beverage.cs" />

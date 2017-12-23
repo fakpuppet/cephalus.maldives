@@ -72,6 +72,18 @@ namespace Cephalus.Maldives.DAL.Sql
             }
         }
 
+        public void Create(Customer customer)
+        {
+            ExecuteOnContext(context => 
+            {
+                var dto = ConvertToDto(customer);
+
+                context.Entry(dto).State = EntityState.Added;
+
+                return context.SaveChanges();
+            });
+        }
+
         public Customer Get(Guid id)
         {
             return ExecuteOnContext(context =>
@@ -131,13 +143,13 @@ namespace Cephalus.Maldives.DAL.Sql
             };
         }
 
-        private Customer ConvertFromDto(MaldivesContext context, CustomerDto dto)
+        private CustomerDto ConvertToDto(Customer customer)
         {
-            return new Customer()
+            return new CustomerDto
             {
-                CustomerNumber = dto.CustomerNumber,
-                BirthDate = dto.BirthDate,
-                Tags = dto.Tags?.Select(t => ConvertTagFromDto(t))
+                CustomerNumber = customer.CustomerNumber,
+                BirthDate = customer.BirthDate,
+                Tags = customer.Tags.Select(t => ConvertTagToTagDto(t)).ToArray()
             };
         }
 
@@ -146,9 +158,15 @@ namespace Cephalus.Maldives.DAL.Sql
             return TagFactory.TagFromDto(dto);
         }
 
+        private TagDto ConvertTagToTagDto(Tag tag)
+        {
+            return TagDtoFactory.TagDtoFromTag(tag);
+        }
+
         private TagTypeDto FromTagType(TagType tagType)
         {
             return (TagTypeDto)tagType;
         }
+
     }
 }

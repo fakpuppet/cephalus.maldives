@@ -1,7 +1,9 @@
-﻿using Cephalus.Maldives.Core.Models;
+﻿using Cephalus.Maldives.Core.Exceptions;
+using Cephalus.Maldives.Core.Models;
 using Cephalus.Maldives.Core.Services;
 using Cephalus.Maldives.DAL.Sql;
 using Cephalus.Maldives.Services;
+using Cephalus.Maldives.Web.ActionFilters;
 using Cephalus.Maldives.Web.Models;
 using System.Web.Mvc;
 
@@ -27,13 +29,17 @@ namespace Cephalus.Maldives.Web.Controllers
         {
             var model = new CustomersModel
             {
-                Customers = _customerService.GetByTags(new[] { TagType.Country, TagType.Ethnicity, TagType.Beverage }, string.Empty)
+                Customers = _customerService.GetByTags(new TagType[0], null)
             };
 
             return View(model);
         }
+        public ActionResult Customer()
+        {
+            return View(new AddCustomerModel());
+        }
 
-        [HttpPost]
+        [HttpPost, AjaxOnly]
         public ActionResult GetCustomersByTagType(CustomerSearchModel searchModel)
         {
             if (!ModelState.IsValid)
@@ -49,18 +55,28 @@ namespace Cephalus.Maldives.Web.Controllers
             return PartialView("~/Views/Home/Partials/_Customers.cshtml", model);
         }
 
-        public ActionResult About()
+        [HttpPost, AjaxOnly]
+        public ActionResult AddCustomer(AddCustomerModel model)
         {
-            ViewBag.Message = "Your application description page.";
+            if (!ModelState.IsValid)
+            {
+                model.SetAlert("You entered invalid Customer data", AlertType.ClienError);
 
-            return View();
-        }
+                return PartialView("", model);
+            }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
+            try
+            {
+                _customerService.Create(model.ToCustomer());
 
-            return View();
+                return RedirectToAction("Index");
+            }
+            catch(CreateCustomerException)
+            {
+                model.SetAlert("An error occurred while attempting to create a Customer", AlertType.ServerError);
+
+                return PartialView("", model);
+            }
         }
     }
 }

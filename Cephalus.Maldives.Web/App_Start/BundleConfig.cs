@@ -41,6 +41,7 @@ namespace Cephalus.Maldives.Web
             bundles.Add(new ScriptBundle("~/bundles/Shared")
                 .Include("~/Scripts/libs/jquery.selectric.min.js",
                          "~/Scripts/util/helpers/selectric-binder.js",
+                         "~/Scripts/util/helpers/form-helper.js",
                          "~/Scripts/main/main.js"
                 ));
         }

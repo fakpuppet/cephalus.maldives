@@ -1,5 +1,5 @@
 ﻿@model  Cephalus.Maldives.Core.Models.Activity
 
-<div style="background-color:darkorange">
-    <span>Activities:</span> @(string.Join(", ", Model.Activities.Select(a => a.Name)))
+<div>
+    <span>Activities:</span> <strong>@(string.Join(", ", Model.Activities.Select(a => a.Name)))</strong>
 </div>

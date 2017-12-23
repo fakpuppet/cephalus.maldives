@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActivityRepository.cs" />
+    <Compile Include="Dto\TagDtoFactory.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="RepositoryBase.cs" />
     <Compile Include="CustomerRepository.cs" />

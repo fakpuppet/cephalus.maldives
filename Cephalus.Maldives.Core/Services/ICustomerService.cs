@@ -6,6 +6,8 @@ namespace Cephalus.Maldives.Core.Services
 {
     public interface ICustomerService
     {
+        void Create(Customer customer);
+
         Customer Get(Guid id);
 
         IEnumerable<Customer> GetByTags(IEnumerable<TagType> tagType, string keyWord);

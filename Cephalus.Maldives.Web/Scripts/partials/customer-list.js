@@ -1,4 +1,5 @@
 ﻿/// <reference path="../services/data-service.js" />
+/// <reference path="../util/helpers/form-helper.js" />
 CustomerPartial = function () {
     return {
         Init: function () {
@@ -6,11 +7,19 @@ CustomerPartial = function () {
         },
 
         OnBegin: function () {
+            var $submit = $(this).find("input[type='submit']");
 
+            FormHelper.ShowLoader($submit);
         },
 
         OnSuccess: function (data) {
             $("#customerListContainer").html(data);
+        },
+
+        OnComplete: function () {
+            var $submit = $(this).find("input[type='submit']");
+
+            FormHelper.HideLoader($submit);
         }
     };
 }();

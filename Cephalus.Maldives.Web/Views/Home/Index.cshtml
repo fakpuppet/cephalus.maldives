@@ -3,24 +3,27 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="left-col">
-    <div class="left-col-inner">
+<div class="wrap">
 
-        <h2 class="">
-            Your clients
-        </h2>
+    <h2 class="">
+        Your clients
+    </h2>
+    <div class="left-col">
+        <div class="left-col-container">
+            <div class="left-col-inner border-bottom">
 
-        <div id="filterPanel">
-            @Html.Partial("~/Views/Home/Partials/_SearchFilters.cshtml", new Cephalus.Maldives.Web.Models.CustomerSearchModel())
+                <div id="filterPanel">
+                    @Html.Partial("~/Views/Home/Partials/_SearchFilters.cshtml", new Cephalus.Maldives.Web.Models.CustomerSearchModel())
+                </div>
+
+                <div id="customerListContainer">
+                    @Html.Partial("~/Views/Home/Partials/_Customers.cshtml", Model)
+                </div>
+
+            </div>
         </div>
-
-        <div id="customerListContainer">
-            @Html.Partial("~/Views/Home/Partials/_Customers.cshtml", Model)
-        </div>
-
     </div>
-</div>
-
-@section scripts {
-    @Scripts.Render("~/bundles/Customers")
-}
+    </div>
+    @section scripts {
+        @Scripts.Render("~/bundles/Customers")
+    }

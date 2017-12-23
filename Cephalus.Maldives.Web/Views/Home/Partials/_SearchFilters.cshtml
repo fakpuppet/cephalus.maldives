@@ -9,34 +9,38 @@
 }))
 {
 <div class="left-col-container">
-    <div class="left-col-inner border-bottom">
-        <div class="inner-top style-1-a">
-            <h3 class="blue">
-                Search Filters
-            </h3>
-        </div>
-        <fieldset class="form-row">
-            <div class="label-wrap">
-                @Html.LabelFor(m => m.Tags, new { @class = "bolded" })
-            </div>
-            <div class="long">
-                @Html.ListBoxFor(m => m.Tags, EnumHelper.GetSelectList(typeof(Cephalus.Maldives.Core.Models.TagType)), new { @class = "tag-type" })
-                @Html.ValidationMessageFor(m => m.Tags)
-            </div>
-        </fieldset>
+    <div class="frame frame-grey membership-list-wrap">
+        <div class="frame-inner">
+            <div class="left-col-inner border-bottom1">
+                <div class="inner-top style-1-a">
+                    <h3 class="blue">
+                        Search Filters
+                    </h3>
+                </div>
+                <fieldset class="form-row">
+                    <div class="label-wrap">
+                        @Html.LabelFor(m => m.Tags, new { @class = "bolded" })
+                    </div>
+                    <div class="long">
+                        @Html.ListBoxFor(m => m.Tags, EnumHelper.GetSelectList(typeof(Cephalus.Maldives.Core.Models.TagType)), new { @class = "tag-type" })
+                        @Html.ValidationMessageFor(m => m.Tags)
+                    </div>
+                </fieldset>
 
-        <fieldset class="form-row">
-            <div class="label-wrap">
-                <label class="bolded" for="Email">Keyword</label>
-            </div>
-            <div class="long">
-                @Html.TextBoxFor(m => m.Keyword, new { @class = "in-text" })
-                @Html.ValidationMessageFor(m => m.Keyword)
-            </div>
-        </fieldset>
+                <fieldset class="form-row">
+                    <div class="label-wrap">
+                        <label class="bolded" for="Email">Keyword</label>
+                    </div>
+                    <div class="long">
+                        @Html.TextBoxFor(m => m.Keyword, new { @class = "in-text" })
+                        @Html.ValidationMessageFor(m => m.Keyword)
+                    </div>
+                </fieldset>
 
-        <div class="left-col-inner horizontal-align">
-            <input type="submit" class="btn btn-white btn-33" value="Search Customers" id="refreshCustomerView" />
+                <div class="left-col-inner horizontal-align">
+                    <input type="submit" class="btn btn-white btn-33" value="Search Customers" id="refreshCustomerView" />
+                </div>
+            </div>
         </div>
     </div>
 </div>

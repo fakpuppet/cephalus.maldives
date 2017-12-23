@@ -9,8 +9,9 @@
 </head>
 <body>
     <div class="container">
-        @RenderBody()
+    @RenderBody()
     </div>
+</body>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
@@ -19,5 +20,4 @@
     @Scripts.Render("~/bundles/Shared")
 
     @RenderSection("scripts", required: false)
-</body>
 </html>

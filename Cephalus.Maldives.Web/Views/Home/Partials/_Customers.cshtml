@@ -1,16 +1,25 @@
 ﻿@model Cephalus.Maldives.Web.Models.CustomersModel
 
-<div class="left-col-container">
-    <div class="left-col-inner border-bottom">
-        <ul class="table-list upload-list">
+<div class="left-col-container0">
+    <div class="frame frame-grey membership-list-wrap">
+        <div class="frame-inner">
+        @if (Model.Customers.Any())
+        {
+            <ul class="membership-list first-row-grey">
             @{
                 foreach (var item in Model.Customers)
                 {
-                    <li>
                     @Html.DisplayFor(m => item)
-                    </li>
                 }
             }
-        </ul>
+            </ul>
+        }
+        else
+        {
+            <div class="no-tasks">
+                <p><i class="icon-emergency"></i>No customers to display</p>
+            </div>
+        }
+        </div>
     </div>
 </div>
