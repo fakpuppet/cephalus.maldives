@@ -3,20 +3,18 @@ using Cephalus.Maldives.DAL.Contracts;
 using Cephalus.Maldives.DAL.Sql.Dto;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Data.Entity;
 
 namespace Cephalus.Maldives.DAL.Sql
 {
-    public class CustomerRepository : ICustomerRepository
+    public class CustomerRepository : RepositoryBase, ICustomerRepository
     {
-        private readonly string _connectionString;
-
         public CustomerRepository(string connectionString)
         {
             _connectionString = connectionString;
-            CreateDummyData();
+            // CreateDummyData();
         }
 
         public void CreateDummyData()
@@ -55,7 +53,7 @@ namespace Cephalus.Maldives.DAL.Sql
                         BirthDate = DateTime.Now.AddYears(-54 + i),
                         CustomerId = Guid.NewGuid(),
                         CustomerNumber = $"HY398{i}FKK07",
-                        Tags = new List<TagDto>() { ethnicity, country, watchBrand, /*activity*/ }
+                        Tags = new List<TagDto>() { ethnicity, country, watchBrand, activity }
                     };
 
                     context.Entry(ethnicity).State = EntityState.Added;
@@ -96,35 +94,20 @@ namespace Cephalus.Maldives.DAL.Sql
             });
         }
 
-        public IEnumerable<Customer> GetByTags(IEnumerable<TagType> tagTypes)
+        public IEnumerable<Customer> GetByTags(IEnumerable<TagType> tagTypes, string keyWord)
         {
             return ExecuteOnContext(context =>
             {
-                var tagTypeDtos = tagTypes.Select(t => (int)t);
+                var tagTypeDtos = tagTypes.Select(t => (int)t).ToArray();
                 var customers = context.Customers
-                    .Where(c => true);
+                    .Include(m => m.Tags)
+                    .Where(c => tagTypeDtos.Intersect(c.Tags.Select(t => (int)t.TagType)).Any());
 
-                return customers.ToArray().Select(c => ConvertFromDto(c));
+                return customers
+                    .ToArray()
+                    .Where(c => c.Tags.Where(t => tagTypeDtos.Contains((int)t.TagType)).Any(t => t.IsMatch(keyWord)))
+                    .Select(c => ConvertFromDto(c));
             });
-        }
-
-        public IEnumerable<Customer> GetByTagType(Type tagType)
-        {
-            return ExecuteOnContext(context =>
-            {
-                return context.Customers.Where(c => true).Select(c => ConvertFromDto(c));
-            });
-        }
-
-        private T ExecuteOnContext<T>(Func<MaldivesContext, T> function)
-        {
-            using (var context = new MaldivesContext(_connectionString))
-            {
-                context.Configuration.ProxyCreationEnabled = false;
-                context.Configuration.LazyLoadingEnabled = false;
-
-                return function(context);
-            }
         }
 
         private Customer Get(Expression<Func<CustomerDto, bool>> predicate)
@@ -139,6 +122,16 @@ namespace Cephalus.Maldives.DAL.Sql
         }
 
         private Customer ConvertFromDto(CustomerDto dto)
+        {
+            return new Customer()
+            {
+                CustomerNumber = dto.CustomerNumber,
+                BirthDate = dto.BirthDate,
+                Tags = dto.Tags?.Select(t => ConvertTagFromDto(t))
+            };
+        }
+
+        private Customer ConvertFromDto(MaldivesContext context, CustomerDto dto)
         {
             return new Customer()
             {

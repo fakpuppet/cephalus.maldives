@@ -1,5 +1,6 @@
 ﻿using Cephalus.Maldives.DAL.Sql.Dto;
 using System.Data.Entity;
+using System.Linq;
 
 namespace Cephalus.Maldives.DAL.Sql
 {
@@ -7,18 +8,27 @@ namespace Cephalus.Maldives.DAL.Sql
     {
         public DbSet<CustomerDto> Customers { get; set; }
 
+        //public DbSet<ActivityDto> Activities { get; set; }
+
+        //public DbSet<CountryDto> Countries { get; set; }
+
+        //public DbSet<WatchBrandDto> WatchBrands { get; set; }
+
+        //public DbSet<EthnicityDto> Ethnicities { get; set; }
+
         public DbSet<TagDto> Tags { get; set; }
 
         public DbSet<SpecificActivityDto> SpecificActivities { get; set; }
 
         static MaldivesContext()
         {
-            Database.SetInitializer(new DropCreateDatabaseAlways<MaldivesContext>());
+            // Database.SetInitializer(new DropCreateDatabaseAlways<MaldivesContext>());
         }
 
         public MaldivesContext(string connectionString) 
             : base(connectionString)
         {
+            Tags.OfType<ActivityDto>().Include(t => t.Activities).Load();
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -26,8 +36,10 @@ namespace Cephalus.Maldives.DAL.Sql
             modelBuilder.Entity<CustomerDto>()
                 .ToTable("Customer")
                 .HasKey(e => e.Id)
-                .HasMany(e => e.Tags)   
-                .WithMany();
+                .HasMany(e => e.Tags);
+
+            modelBuilder.Entity<TagDto>()
+                .ToTable("TagDto");
 
             modelBuilder.Entity<EthnicityDto>()
                 .ToTable("Ethnicity");
@@ -43,7 +55,9 @@ namespace Cephalus.Maldives.DAL.Sql
                 .HasMany(e => e.Activities);
 
             modelBuilder.Entity<SpecificActivityDto>()
-                .ToTable("SpecificActivity");
+                .ToTable("SpecificActivity")
+                .HasRequired(s => s.Activity)
+                .WithMany(s => s.Activities);
         }
     }
 }

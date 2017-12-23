@@ -3,7 +3,6 @@ using Cephalus.Maldives.Core.Services;
 using Cephalus.Maldives.DAL.Sql;
 using Cephalus.Maldives.Services;
 using Cephalus.Maldives.Web.Models;
-using System;
 using System.Web.Mvc;
 
 namespace Cephalus.Maldives.Web.Controllers
@@ -28,18 +27,23 @@ namespace Cephalus.Maldives.Web.Controllers
         {
             var model = new CustomersModel
             {
-                Customers = _customerService.GetByTags(new[] { TagType.Country, TagType.Ethnicity, TagType.Beverage })
+                Customers = _customerService.GetByTags(new[] { TagType.Country, TagType.Ethnicity, TagType.Beverage }, string.Empty)
             };
 
             return View(model);
         }
 
         [HttpPost]
-        public ActionResult GetCustomersByTagType(TagType[] tagTypes)
+        public ActionResult GetCustomersByTagType(CustomerSearchModel searchModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return PartialView("~/Views/Home/Partials/_Customers.cshtml", new CustomersModel());
+            }
+
             var model = new CustomersModel
             {
-                Customers = _customerService.GetByTags(tagTypes)
+                Customers = _customerService.GetByTags(searchModel.Tags, searchModel.Keyword)
             };
 
             return PartialView("~/Views/Home/Partials/_Customers.cshtml", model);

@@ -13,7 +13,7 @@ namespace Cephalus.Mladives.ConsoleApp
         static void Main(string[] args)
         {
             var customerService = new CustomerService(new CustomerRepository(Connection));
-            var customers = customerService.GetByTags(new[] { TagType.Country });
+            var customers = customerService.GetByTags(new[] { TagType.Country }, "");
 
             foreach (var cust in customers)
             {

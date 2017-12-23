@@ -146,12 +146,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ListHelpers.cs" />
+    <Compile Include="Models\CustomerSearchModel.cs" />
     <Compile Include="Models\CustomersModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Site - Copy.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -161,19 +164,30 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="fonts\dca2-icons.woff" />
+    <Content Include="fonts\museosans-300-webfont.woff2" />
+    <Content Include="fonts\museosans_500-webfont.woff2" />
+    <Content Include="fonts\museosans_700-webfont.woff2" />
+    <Content Include="fonts\museosans_900-webfont.woff2" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\libs\jquery.selectric.js" />
+    <Content Include="Scripts\libs\jquery.selectric.min.js" />
+    <Content Include="Scripts\main\main.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\partials\customer-list.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\services\data-service.js" />
+    <Content Include="Scripts\util\helpers\selectric-binder.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -190,11 +204,18 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Partials\_Customers.cshtml" />
     <Content Include="Views\Home\Partials\_SearchFilters.cshtml" />
+    <Content Include="Views\Home\DisplayTemplates\Customer.cshtml" />
+    <Content Include="Views\Home\DisplayTemplates\Activity.cshtml" />
+    <Content Include="Views\Home\DisplayTemplates\WatchBrand.cshtml" />
+    <Content Include="Views\Home\DisplayTemplates\Ethnicity.cshtml" />
+    <Content Include="Views\Home\DisplayTemplates\Tags.cshtml" />
+    <Content Include="Views\Home\DisplayTemplates\DateTime.cshtml" />
+    <Content Include="Views\Home\DisplayTemplates\Country.cshtml" />
+    <Content Include="Views\Home\DisplayTemplates\Tag.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Scripts\pages\" />
-    <Folder Include="Scripts\util\helpers\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

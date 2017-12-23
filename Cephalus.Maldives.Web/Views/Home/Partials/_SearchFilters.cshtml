@@ -1,14 +1,43 @@
-﻿@model Cephalus.Maldives.Web.Models.CustomersModel
+﻿@model Cephalus.Maldives.Web.Models.CustomerSearchModel
 
-<div class="jumbotron">
-    <table>
-        <tr>
-            <td>
-        @Html.ListBox("TagType", EnumHelper.GetSelectList(typeof(Cephalus.Maldives.Core.Models.TagType)), new { id = "tagType" })
-            </td>
-            <td>
-    <input type="button" value="Refresh Customer View" id="refreshCustomerView" />
-            </td>
-        </tr>
-    </table>
+@using (Ajax.BeginForm("GetCustomersByTagType", "Home", new AjaxOptions()
+{
+    HttpMethod = "POST",
+    OnBegin = "CustomerPartial.OnBegin",
+    OnSuccess = "CustomerPartial.OnSuccess",
+    OnComplete = "CustomerPartial.OnComplete"
+}))
+{
+<div class="left-col-container">
+    <div class="left-col-inner border-bottom">
+        <div class="inner-top style-1-a">
+            <h3 class="blue">
+                Search Filters
+            </h3>
+        </div>
+        <fieldset class="form-row">
+            <div class="label-wrap">
+                @Html.LabelFor(m => m.Tags, new { @class = "bolded" })
+            </div>
+            <div class="long">
+                @Html.ListBoxFor(m => m.Tags, EnumHelper.GetSelectList(typeof(Cephalus.Maldives.Core.Models.TagType)), new { @class = "tag-type" })
+                @Html.ValidationMessageFor(m => m.Tags)
+            </div>
+        </fieldset>
+
+        <fieldset class="form-row">
+            <div class="label-wrap">
+                <label class="bolded" for="Email">Keyword</label>
+            </div>
+            <div class="long">
+                @Html.TextBoxFor(m => m.Keyword, new { @class = "in-text" })
+                @Html.ValidationMessageFor(m => m.Keyword)
+            </div>
+        </fieldset>
+
+        <div class="left-col-inner horizontal-align">
+            <input type="submit" class="btn btn-white btn-33" value="Search Customers" id="refreshCustomerView" />
+        </div>
+    </div>
 </div>
+}

@@ -1,18 +1,16 @@
 ﻿@model Cephalus.Maldives.Web.Models.CustomersModel
 
-<div class="jumbotron">
-    <table>
-@{
-    foreach (var item in Model.Customers)
-    {
-        var tags = item.Tags?.Select(t => t.Display()) ?? Enumerable.Empty<string>();
-
-        <tr>
-            <td style="padding: 5px"><a href="#">Client - @item.CustomerNumber.ToUpper()</a></td>
-            <td style="padding: 5px">Birthday: @(item.BirthDate?.ToString("dd.MM.yyyy"))</td>
-            <td style="padding: 5px">@(string.Join(", ", tags)) </td>
-        </tr>
-    }
-}
-    </table>
+<div class="left-col-container">
+    <div class="left-col-inner border-bottom">
+        <ul class="table-list upload-list">
+            @{
+                foreach (var item in Model.Customers)
+                {
+                    <li>
+                    @Html.DisplayFor(m => item)
+                    </li>
+                }
+            }
+        </ul>
+    </div>
 </div>

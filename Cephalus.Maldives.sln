@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cephalus.Maldives.Services"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cephalus.Maldives.Web", "Cephalus.Maldives.Web\Cephalus.Maldives.Web.csproj", "{ED7DC6B8-815A-4D45-93A6-5DD8604160E1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cephalus.Maldives.Common", "Cephalus.Maldives.Common\Cephalus.Maldives.Common.csproj", "{C6BEA53F-2759-4BE0-8041-4873ECDC9A9E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{ED7DC6B8-815A-4D45-93A6-5DD8604160E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED7DC6B8-815A-4D45-93A6-5DD8604160E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED7DC6B8-815A-4D45-93A6-5DD8604160E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6BEA53F-2759-4BE0-8041-4873ECDC9A9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6BEA53F-2759-4BE0-8041-4873ECDC9A9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6BEA53F-2759-4BE0-8041-4873ECDC9A9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6BEA53F-2759-4BE0-8041-4873ECDC9A9E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

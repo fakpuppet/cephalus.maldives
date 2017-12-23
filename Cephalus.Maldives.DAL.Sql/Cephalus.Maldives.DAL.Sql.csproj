@@ -53,6 +53,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActivityRepository.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="RepositoryBase.cs" />
     <Compile Include="CustomerRepository.cs" />
     <Compile Include="Dto\ActivityDto.cs" />
     <Compile Include="Dto\CountryDto.cs" />

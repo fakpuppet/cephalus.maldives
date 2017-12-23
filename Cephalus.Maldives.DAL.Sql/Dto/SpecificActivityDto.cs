@@ -10,5 +10,7 @@ namespace Cephalus.Maldives.DAL.Sql.Dto
         public long Id { get; set; }
 
         public string Name { get; set; }
+
+        public ActivityDto Activity { get; set; }
     }
 }

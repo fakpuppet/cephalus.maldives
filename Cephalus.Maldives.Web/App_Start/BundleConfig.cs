@@ -1,5 +1,4 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
 namespace Cephalus.Maldives.Web
 {
@@ -13,6 +12,11 @@ namespace Cephalus.Maldives.Web
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
+
+            bundles.Add(new ScriptBundle("~/bundles/jqueryunobtrusive").Include(
+                        "~/Scripts/jquery.unobtrusive*"));
+
+            RegisterSharedBunde(bundles);
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
@@ -30,6 +34,15 @@ namespace Cephalus.Maldives.Web
             bundles.Add(new ScriptBundle("~/bundles/Customers").Include(
                 "~/Scripts/partials/customer-list.js",
                 "~/Scripts/services/data-service.js"));
-        }        
+        }
+
+        private static void RegisterSharedBunde(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/Shared")
+                .Include("~/Scripts/libs/jquery.selectric.min.js",
+                         "~/Scripts/util/helpers/selectric-binder.js",
+                         "~/Scripts/main/main.js"
+                ));
+        }
     }
 }

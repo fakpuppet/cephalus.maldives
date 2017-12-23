@@ -1,0 +1,7 @@
+﻿@model  Cephalus.Maldives.Core.Models.Customer
+
+<tr>
+    <td style="padding: 5px"><a href="#">Client: @Model.CustomerNumber.ToUpper()</a></td>
+    <td style="padding: 5px">@Html.DisplayFor(m => m.BirthDate)</td>
+    <td style="padding: 5px">@Html.DisplayFor(m => m.Tags)</td>
+</tr>

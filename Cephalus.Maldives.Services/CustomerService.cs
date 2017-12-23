@@ -21,11 +21,11 @@ namespace Cephalus.Maldives.Services
             return _customerRepository.Get(id);
         }
 
-        public IEnumerable<Customer> GetByTags(IEnumerable<TagType> tagType)
+        public IEnumerable<Customer> GetByTags(IEnumerable<TagType> tagType, string keyWord)
         {
             var tagTypeCollection = tagType?.Any() == true ? tagType : Enumerable.Empty<TagType>();
 
-            return _customerRepository.GetByTags(tagType);
+            return _customerRepository.GetByTags(tagType, keyWord);
         }
     }
 }

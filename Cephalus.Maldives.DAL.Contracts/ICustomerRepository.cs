@@ -14,6 +14,6 @@ namespace Cephalus.Maldives.DAL.Contracts
 
         //IEnumerable<Customer> GetByTags(IEnumerable<Guid> tagIds);
 
-        IEnumerable<Customer> GetByTags(IEnumerable<TagType> tagTypes);
+        IEnumerable<Customer> GetByTags(IEnumerable<TagType> tagTypes, string keyWord);
     }
 }
