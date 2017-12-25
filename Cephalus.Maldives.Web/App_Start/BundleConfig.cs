@@ -32,8 +32,11 @@ namespace Cephalus.Maldives.Web
                       "~/Content/site.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/Customers").Include(
-                "~/Scripts/partials/customer-list.js",
-                "~/Scripts/services/data-service.js"));
+                    "~/Scripts/pages/customers.js",
+                    "~/Scripts/services/data-service.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/AddCustomer").Include(
+                    "~/Scripts/pages/add-customer.js"));
         }
 
         private static void RegisterSharedBunde(BundleCollection bundles)

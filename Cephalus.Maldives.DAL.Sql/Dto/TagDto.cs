@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace Cephalus.Maldives.DAL.Sql.Dto
 {
@@ -18,9 +19,9 @@ namespace Cephalus.Maldives.DAL.Sql.Dto
 
         public abstract string Display();
 
-        public virtual bool IsMatch (string keyWord)
+        public virtual bool IsMatch (string[] keyWords)
         {
-            return Name.Like(keyWord);
+            return keyWords.Any(k => Name.Like(k));
         }
     }
 }

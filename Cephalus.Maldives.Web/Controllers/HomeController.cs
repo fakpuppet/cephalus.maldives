@@ -5,6 +5,7 @@ using Cephalus.Maldives.DAL.Sql;
 using Cephalus.Maldives.Services;
 using Cephalus.Maldives.Web.ActionFilters;
 using Cephalus.Maldives.Web.Models;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace Cephalus.Maldives.Web.Controllers
@@ -29,7 +30,7 @@ namespace Cephalus.Maldives.Web.Controllers
         {
             var model = new CustomersModel
             {
-                Customers = _customerService.GetByTags(new TagType[0], null)
+                Customers = _customerService.GetByTags(new TagType[0], Enumerable.Empty<string>().ToArray())
             };
 
             return View(model);
@@ -49,7 +50,7 @@ namespace Cephalus.Maldives.Web.Controllers
 
             var model = new CustomersModel
             {
-                Customers = _customerService.GetByTags(searchModel.Tags, searchModel.Keyword)
+                Customers = _customerService.GetByTags(searchModel.Tags, searchModel.GetKeywords())
             };
 
             return PartialView("~/Views/Home/Partials/_Customers.cshtml", model);
@@ -62,7 +63,7 @@ namespace Cephalus.Maldives.Web.Controllers
             {
                 model.SetAlert("You entered invalid Customer data", AlertType.ClienError);
 
-                return PartialView("", model);
+                return PartialView("~/Views/Home/Partials/_AddCustomerForm.cshtml", model);
             }
 
             try

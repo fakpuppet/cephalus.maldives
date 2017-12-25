@@ -1,0 +1,53 @@
+﻿@model Cephalus.Maldives.Web.Models.AddCustomerModel
+
+@using (Ajax.BeginForm("AddCustomer", "Home", new AjaxOptions()
+{
+    HttpMethod = "POST",
+    OnBegin = "AddCustomerPage.OnBegin",
+    OnSuccess = "AddCustomerPage.OnSuccess",
+    OnComplete = "AddCustomerPage.OnComplete"
+}))
+{
+    <div class="left-col-container">
+        <div class="left-col-inner border-bottom">
+            <div class="inner-top style-1-a">
+                <h3 class="blue">
+                    Search Filters
+                </h3>
+            </div>
+            <fieldset class="form-row">
+                <div class="label-wrap">
+                    @Html.LabelFor(m => m.CustomerNumber, new { @class = "bolded" })
+                </div>
+                <div class="long">
+                    @Html.TextBoxFor(m => m.CustomerNumber, new { @class = "in-text" })
+                    @Html.ValidationMessageFor(m => m.Tags)
+                </div>
+            </fieldset>
+
+            <fieldset class="form-row">
+                <div class="label-wrap">
+                    @Html.LabelFor(m => m.BirthDate, new { @class = "bolded" })
+                </div>
+                <div class="long">
+                    @Html.TextBoxFor(m => m.BirthDate, new { @class = "in-text" })
+                    @Html.ValidationMessageFor(m => m.BirthDate)
+                </div>
+            </fieldset>
+
+            <fieldset class="form-row">
+                <div class="label-wrap">
+                    @Html.LabelFor(m => m.Tags, new { @class = "bolded" })
+                </div>
+                <div class="long">
+                    @Html.ListBoxFor(m => m.Tags, EnumHelper.GetSelectList(typeof(Cephalus.Maldives.Core.Models.TagType)), new { @class = "tag-type" })
+                    @Html.ValidationMessageFor(m => m.Tags)
+                </div>
+            </fieldset>
+
+            <div class="left-col-inner horizontal-align">
+                <input type="submit" class="btn btn-white btn-33" value="Add Customer" id="addCustomer" />
+            </div>
+        </div>
+    </div>
+}

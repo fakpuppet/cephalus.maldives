@@ -106,7 +106,7 @@ namespace Cephalus.Maldives.DAL.Sql
             });
         }
 
-        public IEnumerable<Customer> GetByTags(IEnumerable<TagType> tagTypes, string keyWord)
+        public IEnumerable<Customer> GetByTags(IEnumerable<TagType> tagTypes, string[] keyWords)
         {
             return ExecuteOnContext(context =>
             {
@@ -117,7 +117,7 @@ namespace Cephalus.Maldives.DAL.Sql
 
                 return customers
                     .ToArray()
-                    .Where(c => c.Tags.Where(t => tagTypeDtos.Contains((int)t.TagType)).Any(t => t.IsMatch(keyWord)))
+                    .Where(c => c.Tags.Where(t => tagTypeDtos.Contains((int)t.TagType)).Any(t => t.IsMatch(keyWords)))
                     .Select(c => ConvertFromDto(c));
             });
         }

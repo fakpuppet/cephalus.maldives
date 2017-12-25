@@ -12,6 +12,6 @@ namespace Cephalus.Maldives.DAL.Contracts
 
         Customer Get(Guid id);
 
-        IEnumerable<Customer> GetByTags(IEnumerable<TagType> tagTypes, string keyWord);
+        IEnumerable<Customer> GetByTags(IEnumerable<TagType> tagTypes, string[] keyWords);
     }
 }

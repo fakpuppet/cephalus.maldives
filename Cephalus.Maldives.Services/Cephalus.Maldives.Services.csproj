@@ -44,6 +44,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Cephalus.Maldives.Common\Cephalus.Maldives.Common.csproj">
+      <Project>{c6bea53f-2759-4be0-8041-4873ecdc9a9e}</Project>
+      <Name>Cephalus.Maldives.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Cephalus.Maldives.Core\Cephalus.Maldives.Core.csproj">
       <Project>{51b6b63f-7ff0-43c1-b2c5-be33cf4df78b}</Project>
       <Name>Cephalus.Maldives.Core</Name>

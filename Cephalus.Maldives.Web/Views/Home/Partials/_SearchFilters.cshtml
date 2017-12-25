@@ -3,9 +3,9 @@
 @using (Ajax.BeginForm("GetCustomersByTagType", "Home", new AjaxOptions()
 {
     HttpMethod = "POST",
-    OnBegin = "CustomerPartial.OnBegin",
-    OnSuccess = "CustomerPartial.OnSuccess",
-    OnComplete = "CustomerPartial.OnComplete"
+    OnBegin = "CustomersPage.OnBegin",
+    OnSuccess = "CustomersPage.OnSuccess",
+    OnComplete = "CustomersPage.OnComplete"
 }))
 {
 <div class="left-col-container">
@@ -22,18 +22,23 @@
                         @Html.LabelFor(m => m.Tags, new { @class = "bolded" })
                     </div>
                     <div class="long">
-                        @Html.ListBoxFor(m => m.Tags, EnumHelper.GetSelectList(typeof(Cephalus.Maldives.Core.Models.TagType)), new { @class = "tag-type" })
+                        @{
+                            var list = new List<SelectListItem>(EnumHelper.GetSelectList(typeof(Cephalus.Maldives.Core.Models.TagType)));
+                            list.Insert(0, new SelectListItem() { Text = "", Value = null });
+                        }
+                        @Html.ListBoxFor(m => m.Tags, list, new { @class = "tag-type" })
                         @Html.ValidationMessageFor(m => m.Tags)
                     </div>
                 </fieldset>
 
                 <fieldset class="form-row">
                     <div class="label-wrap">
-                        <label class="bolded" for="Email">Keyword</label>
+                        @*<label class="bolded" for="Email">Keyword</label>*@
+                        @Html.LabelFor(m => m.Keywords, new { @class = "bolded" })
                     </div>
                     <div class="long">
-                        @Html.TextBoxFor(m => m.Keyword, new { @class = "in-text" })
-                        @Html.ValidationMessageFor(m => m.Keyword)
+                        @Html.TextBoxFor(m => m.Keywords, new { @class = "in-text" })
+                        @Html.ValidationMessageFor(m => m.Keywords)
                     </div>
                 </fieldset>
 

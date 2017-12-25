@@ -1,19 +1,16 @@
-﻿/// <reference path="../services/data-service.js" />
-/// <reference path="../util/helpers/form-helper.js" />
-CustomerPartial = function () {
+﻿AddCustomerPage = function () {
     return {
-        Init: function () {
-
-        },
-
         OnBegin: function () {
             var $submit = $(this).find("input[type='submit']");
 
             FormHelper.ShowLoader($submit);
+
         },
 
         OnSuccess: function (data) {
-            $("#customerListContainer").html(data);
+            if (data.Success) {
+                alert("customer added!");
+            }
         },
 
         OnComplete: function () {
@@ -23,7 +20,3 @@ CustomerPartial = function () {
         }
     };
 }();
-
-$(document).ready(function () {
-    CustomerPartial.Init();
-});

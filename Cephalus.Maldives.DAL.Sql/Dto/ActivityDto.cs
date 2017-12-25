@@ -16,9 +16,9 @@ namespace Cephalus.Maldives.DAL.Sql.Dto
 
         public override string Display() => string.Join(", ", Activities.Select(a => a.Name));
 
-        public override bool IsMatch(string keyWord)
+        public override bool IsMatch(string[] keyWords)
         {
-            return Activities.Any(a => a.Name.Like(keyWord));
+            return Activities.Any(a => keyWords.Any(k => a.Name.Like(k)));
         }
     }
 }

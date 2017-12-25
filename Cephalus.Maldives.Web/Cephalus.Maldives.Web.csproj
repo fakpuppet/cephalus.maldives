@@ -189,7 +189,8 @@
     <Content Include="Scripts\libs\jquery.selectric.min.js" />
     <Content Include="Scripts\main\main.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\partials\customer-list.js" />
+    <Content Include="Scripts\pages\add-customer.js" />
+    <Content Include="Scripts\pages\customers.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\services\data-service.js" />
@@ -218,10 +219,12 @@
     <Content Include="Views\Home\DisplayTemplates\DateTime.cshtml" />
     <Content Include="Views\Home\DisplayTemplates\Country.cshtml" />
     <Content Include="Views\Home\DisplayTemplates\Tag.cshtml" />
+    <Content Include="Views\Home\Partials\_AddCustomerForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Scripts\pages\" />
+    <Folder Include="ModelBinders\" />
+    <Folder Include="Scripts\partials\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
