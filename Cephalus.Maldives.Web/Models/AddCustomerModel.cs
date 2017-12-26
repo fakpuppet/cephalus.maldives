@@ -18,7 +18,7 @@ namespace Cephalus.Maldives.Web.Models
             {
                 CustomerNumber = CustomerNumber,
                 BirthDate = BirthDate,
-                Tags = Tags
+                Tags = new List<Tag>() { new WatchBrand() { Name = "Darwil" } }
             };
         }
     }

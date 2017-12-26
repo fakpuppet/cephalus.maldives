@@ -78,6 +78,11 @@ namespace Cephalus.Maldives.DAL.Sql
             {
                 var dto = ConvertToDto(customer);
 
+                foreach (var tag in dto.Tags)
+                {
+                    context.Entry(tag).State = EntityState.Added;
+                }
+
                 context.Entry(dto).State = EntityState.Added;
 
                 return context.SaveChanges();
@@ -149,7 +154,7 @@ namespace Cephalus.Maldives.DAL.Sql
             {
                 CustomerNumber = customer.CustomerNumber,
                 BirthDate = customer.BirthDate,
-                Tags = customer.Tags.Select(t => ConvertTagToTagDto(t)).ToArray()
+                Tags = customer.Tags?.Select(t => ConvertTagToTagDto(t)).ToArray()
             };
         }
 
