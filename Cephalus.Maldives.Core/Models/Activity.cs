@@ -7,6 +7,11 @@ namespace Cephalus.Maldives.Core.Models
     {
         public ICollection<SpecificActivity> Activities { get; set; }
 
+        public Activity()
+        {
+            Name = "Activity";
+        }
+
         public override string Display()
         {
             if (Activities?.Any() == true)

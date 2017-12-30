@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
 namespace Cephalus.Maldives.DAL.Sql.Dto
@@ -7,7 +8,7 @@ namespace Cephalus.Maldives.DAL.Sql.Dto
     public abstract class TagDto
     {
         [Key]
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         public Guid TagId { get; set; }
 
@@ -16,6 +17,11 @@ namespace Cephalus.Maldives.DAL.Sql.Dto
         public string Name { get; set; }
 
         public CustomerDto Customer { get; set; }
+
+        public TagDto()
+        {
+            TagId = Guid.NewGuid();
+        }
 
         public abstract string Display();
 

@@ -10,7 +10,9 @@
     <div class="left-col">
         <div class="left-col-container">
             <div class="left-col-inner border-bottom">
-
+                <div>
+                    @Html.Partial("~/Views/Home/Partials/_Toolbar.cshtml")
+                </div>
                 <div id="filterPanel">
                     @Html.Partial("~/Views/Home/Partials/_SearchFilters.cshtml", new Cephalus.Maldives.Web.Models.CustomerSearchModel())
                 </div>

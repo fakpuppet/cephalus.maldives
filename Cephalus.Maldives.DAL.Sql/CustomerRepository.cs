@@ -26,17 +26,14 @@ namespace Cephalus.Maldives.DAL.Sql
                     var country = new CountryDto()
                     {
                         Name = $"Sri Lanka {i}",
-                        TagId = Guid.NewGuid()
                     };
                     var ethnicity = new EthnicityDto()
                     {
                         Name = "Zoroastrian",
-                        TagId = Guid.NewGuid()
                     };
                     var watchBrand = new WatchBrandDto()
                     {
                         Name = "Panerai",
-                        TagId = Guid.NewGuid()
                     };
 
                     var hiking = new SpecificActivityDto() { Name = "Hiking" };
@@ -46,13 +43,11 @@ namespace Cephalus.Maldives.DAL.Sql
                     var activity = new ActivityDto()
                     {
                         Activities = new List<SpecificActivityDto>() { hiking, cycling, jerking, },
-                        TagId = Guid.NewGuid()
                     };
                     var customer = new CustomerDto()
                     {
                         BirthDate = DateTime.Now.AddYears(-54 + i),
-                        CustomerId = Guid.NewGuid(),
-                        CustomerNumber = $"HY398{i}FKK07",
+                        CustomerNumber = $"HY398{i}K07K",
                         Tags = new List<TagDto>() { ethnicity, country, watchBrand, activity }
                     };
 
@@ -127,6 +122,17 @@ namespace Cephalus.Maldives.DAL.Sql
             });
         }
 
+        public void Update(Customer customer)
+        {
+            ExecuteOnContext<object>(context => 
+            {
+                context.Entry(customer).State = EntityState.Modified;
+                context.SaveChanges();
+
+                return null;
+            });
+        }
+
         private Customer Get(Expression<Func<CustomerDto, bool>> predicate)
         {
             return ExecuteOnContext(context =>
@@ -144,6 +150,7 @@ namespace Cephalus.Maldives.DAL.Sql
             {
                 CustomerNumber = dto.CustomerNumber,
                 BirthDate = dto.BirthDate,
+                CustomerId = dto.CustomerId,
                 Tags = dto.Tags?.Select(t => ConvertTagFromDto(t))
             };
         }

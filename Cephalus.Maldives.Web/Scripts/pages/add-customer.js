@@ -1,4 +1,6 @@
-﻿AddCustomerPage = function () {
+﻿/// <reference path="../util/helpers/ajax-json-response-handler.js" />
+/// <reference path="../util/helpers/form-helper.js" />
+AddCustomerPage = function () {
     return {
         OnBegin: function () {
             var $submit = $(this).find("input[type='submit']");
@@ -7,9 +9,7 @@
         },
 
         OnSuccess: function (data) {
-            if (data.ResultType = "JsonRedirectResult") {
-                alert("customer added!");
-            }
+            AjaxJsonResponseHandler.HandleAjaxResult(data, null);
         },
 
         OnComplete: function () {

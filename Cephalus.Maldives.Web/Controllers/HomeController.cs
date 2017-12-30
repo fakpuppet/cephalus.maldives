@@ -1,5 +1,4 @@
-﻿using Cephalus.Maldives.Core.Exceptions;
-using Cephalus.Maldives.Core.Models;
+﻿using Cephalus.Maldives.Core.Models;
 using Cephalus.Maldives.Core.Services;
 using Cephalus.Maldives.DAL.Sql;
 using Cephalus.Maldives.Services;
@@ -54,31 +53,6 @@ namespace Cephalus.Maldives.Web.Controllers
             };
 
             return PartialView("~/Views/Home/Partials/_Customers.cshtml", model);
-        }
-
-        [HttpPost, AjaxOnly]
-        public ActionResult AddCustomer(AddCustomerModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                model.SetAlert("You entered invalid Customer data", AlertType.ClienError);
-
-                return JsonResultWithView(Models.JsonResult.JsonActionResultType.ActionError, "~/Views/Home/Partials/_AddCustomerForm.cshtml", model);
-            }
-            
-            try
-            {
-                _customerService.Create(model.ToCustomer());
-
-                return JsonRedirectResult(Models.JsonResult.JsonActionResultType.ActionSuccess, Url.Action("Index", "Home"));
-            }
-            catch(CreateCustomerException)
-            {
-                model.SetAlert("An error occurred while attempting to create a Customer", AlertType.ServerError);
-                ModelState.AddModelError("CreateCustomerException", "An error occurred while attempting to add a customer");
-
-                return JsonResultWithView(Models.JsonResult.JsonActionResultType.ActionError, "~/Views/Home/Partials/_AddCustomerForm.cshtml", model);
-            }
         }
     }
 }

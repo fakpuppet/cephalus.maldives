@@ -1,0 +1,58 @@
+﻿@model Cephalus.Maldives.Web.Models.EditCustomerModel
+
+@using (Ajax.BeginForm("EditCustomer", "Customer", new AjaxOptions()
+{
+    HttpMethod = "POST",
+    //OnBegin = "AddCustomerPage.OnBegin",
+    //OnSuccess = "AddCustomerPage.OnSuccess",
+    //OnComplete = "AddCustomerPage.OnComplete",
+    //OnFailure = "AddCustomerPage.OnFailure"
+}))
+{
+    @Html.HiddenFor(m => m.Id)
+    <div class="left-col-container">
+        <div class="left-col-inner border-bottom">
+            <div class="inner-top style-1-a">
+                <h3 class="blue">
+                    Search Filters
+                </h3>
+            </div>
+            <fieldset class="form-row">
+                <div class="label-wrap">
+                    @Html.LabelFor(m => m.CustomerNumber, new { @class = "bolded" })
+                </div>
+                <div class="long">
+                    @Html.TextBoxFor(m => m.CustomerNumber, new { @class = "in-text" })
+                    <span class="small-text">
+                        @Html.ValidationMessageFor(m => m.CustomerNumber)
+                    </span>
+                </div>
+            </fieldset>
+
+            <fieldset class="form-row">
+                <div class="label-wrap">
+                    @Html.LabelFor(m => m.BirthDate, new { @class = "bolded" })
+                </div>
+                <div class="long">
+                    @Html.TextBoxFor(m => m.BirthDate, new { @class = "in-text" })
+                    <span class="small-text">
+                        @Html.ValidationMessageFor(m => m.BirthDate)
+                    </span>
+                </div>
+            </fieldset>
+            
+            <fieldset class="form-row">
+                <div class="label-wrap">
+                    @Html.LabelFor(m => m.Tags, new { @class = "bolded" })
+                </div>
+                <div class="long">
+                    @Html.EditorFor(m => m.Tags)
+                </div>
+            </fieldset>
+
+            <div class="left-col-inner horizontal-align">
+                <input type="submit" class="btn btn-white btn-33" value="Save Changes" id="saveChanges" />
+            </div>
+        </div>
+    </div>
+}

@@ -11,6 +11,11 @@ namespace Cephalus.Maldives.DAL.Txt
         {
         }
 
+        public void Create(Customer customer)
+        {
+            throw new NotImplementedException();
+        }
+
         public Customer Get(string customerNumber)
         {
             throw new NotImplementedException();
@@ -27,6 +32,11 @@ namespace Cephalus.Maldives.DAL.Txt
         }
 
         public IEnumerable<Customer> GetByTags(IEnumerable<Guid> tagIds)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Customer> GetByTags(IEnumerable<TagType> tagTypes, string[] keyWords)
         {
             throw new NotImplementedException();
         }

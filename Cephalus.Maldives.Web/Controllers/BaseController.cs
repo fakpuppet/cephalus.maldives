@@ -24,12 +24,12 @@ namespace Cephalus.Maldives.Web.Controllers
 
         public JsonResult JsonRedirectResult(JsonActionResultType resultType, string redirectUrl)
         {
-            return new JsonRedirectResult(resultType, redirectUrl);
+            return new JsonResultBase(new JsonRedirectResult(resultType, redirectUrl));
         }
 
         public JsonResult JsonResultWithView(JsonActionResultType resultType, string viewPath, object model)
         {
-            return new JsonResult(new JsonResultWithView(resultType, RenderRazorViewToString(viewPath, model));
+            return new JsonResultBase(new JsonResultWithView(resultType, RenderRazorViewToString(viewPath, model)));
         }
     }
 }

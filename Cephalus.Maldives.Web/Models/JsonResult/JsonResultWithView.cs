@@ -8,9 +8,10 @@
 
         public string ViewResult { get; set; }
 
-        public JsonResultWithView(object data) 
-            : base(data)
+        public JsonResultWithView(JsonActionResultType resultType, string viewResult)
         {
+            ActionResultType = resultType;
+            ViewResult = viewResult;
         }
     }
 }

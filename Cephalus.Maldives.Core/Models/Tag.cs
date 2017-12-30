@@ -4,7 +4,7 @@ namespace Cephalus.Maldives.Core.Models
 {
     public abstract class Tag
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         public Guid TagId { get; set; }
 

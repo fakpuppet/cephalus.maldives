@@ -1,0 +1,6 @@
+﻿@model  Cephalus.Maldives.Core.Models.SpecificActivity
+
+<div id="@Model.Id" class="long">
+    @Html.HiddenFor(m => m.Id)
+    @Html.TextBoxFor(m => m.Name, new { @class = "in-text" })
+</div>

@@ -9,14 +9,21 @@ namespace Cephalus.Maldives.DAL.Sql.Dto
     public class CustomerDto
     {
         [Key]
+        [Column(Order = 1)]
         public long Id { get; set; }
 
         public Guid CustomerId { get; set; }
 
         public string CustomerNumber { get; set; }
 
+        [Column(TypeName = "Date")]
         public DateTime? BirthDate { get; set; }
 
         public virtual ICollection<TagDto> Tags { get; set; }
+
+        public CustomerDto()
+        {
+            CustomerId = Guid.NewGuid();
+        }
     }
 }

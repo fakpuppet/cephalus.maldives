@@ -50,7 +50,7 @@ namespace Cephalus.Maldives.DAL.Sql.Dto
             {
                 Id = tag.Id,
                 TagId = tag.TagId,
-                Name = tag.Name,
+                Name = tag.Name
             };
         }
     }

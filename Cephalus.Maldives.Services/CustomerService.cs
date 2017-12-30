@@ -27,11 +27,17 @@ namespace Cephalus.Maldives.Services
             return _customerRepository.Get(id);
         }
 
+        public void Update(Customer customer)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<Customer> GetByTags(IEnumerable<TagType> tagType, string[] keyWords)
         {
             var tagTypeCollection = tagType?.Any() == true ? tagType : EnumExtensions.GetValues<TagType>();
 
             return _customerRepository.GetByTags(tagTypeCollection, keyWords);
         }
+
     }
 }

@@ -29,7 +29,7 @@ namespace Cephalus.Maldives.Web
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/Site.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/Customers").Include(
                     "~/Scripts/pages/customers.js",
@@ -45,7 +45,9 @@ namespace Cephalus.Maldives.Web
                 .Include("~/Scripts/libs/jquery.selectric.min.js",
                          "~/Scripts/util/helpers/selectric-binder.js",
                          "~/Scripts/util/helpers/form-helper.js",
-                         "~/Scripts/main/main.js"
+                         "~/Scripts/main/main.js",
+                         "~/Scripts/main/constants.js",
+                         "~/Scripts/util/helpers/ajax-json-response-handler.js"
                 ));
         }
     }

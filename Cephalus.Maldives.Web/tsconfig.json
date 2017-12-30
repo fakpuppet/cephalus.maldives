@@ -1,0 +1,18 @@
+{
+	"exclude": [
+
+	"wwwroot/lib/"
+
+	],
+
+	"typeAcquisition": {
+
+		"enable": true,
+
+		"include": [
+
+		"libs", "main", "pages", "partials", "services", "util"
+
+		]
+	}
+}
