@@ -37,17 +37,20 @@ namespace Cephalus.Maldives.Web
 
             bundles.Add(new ScriptBundle("~/bundles/AddCustomer").Include(
                     "~/Scripts/pages/add-customer.js"));
+            bundles.Add(new ScriptBundle("~/bundles/EditCustomer").Include(
+                    "~/Scripts/pages/edit-customer.js"));
+
         }
 
         private static void RegisterSharedBunde(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/Shared")
                 .Include("~/Scripts/libs/jquery.selectric.min.js",
-                         "~/Scripts/util/helpers/selectric-binder.js",
-                         "~/Scripts/util/helpers/form-helper.js",
                          "~/Scripts/main/main.js",
                          "~/Scripts/main/constants.js",
-                         "~/Scripts/util/helpers/ajax-json-response-handler.js"
+                         "~/Scripts/util/helpers/ajax-json-response-handler.js",
+                         "~/Scripts/util/helpers/selectric-binder.js",
+                         "~/Scripts/util/helpers/form-helper.js"
                 ));
         }
     }

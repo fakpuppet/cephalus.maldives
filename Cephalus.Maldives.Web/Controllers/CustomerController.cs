@@ -15,7 +15,7 @@ namespace Cephalus.Maldives.Web.Controllers
         private readonly ICustomerService _customerService;
         private const string ConnectionString = @"Server=.\;Database=cephalus.maldives;User Id=sa;Password=1;MultipleActiveResultSets=true";
 
-        public CustomerController() 
+        public CustomerController()
             : this(new CustomerService(new CustomerRepository(ConnectionString)))
         {
             // var dependency = typeof(System.Data.Entity.SqlServer.SqlProviderServices);
@@ -27,19 +27,28 @@ namespace Cephalus.Maldives.Web.Controllers
         }
 
         [HttpPost, AjaxOnly]
-        public ActionResult GetCustomersByTagType(CustomerSearchModel searchModel)
+        public ActionResult AddCustomer(AddCustomerModel model)
         {
             if (!ModelState.IsValid)
             {
-                return PartialView("~/Views/Home/Partials/_Customers.cshtml", new CustomersModel());
+                model.SetAlert("You entered invalid Customer data", AlertType.ClienError);
+
+                return JsonResultWithView(Models.JsonResult.JsonActionResultType.ActionError, "~/Views/Customer/Partials/_AddCustomerForm.cshtml", model);
             }
 
-            var model = new CustomersModel
+            try
             {
-                Customers = _customerService.GetByTags(searchModel.Tags, searchModel.GetKeywords())
-            };
+                _customerService.Create(model.ToCustomer());
 
-            return PartialView("~/Views/Home/Partials/_Customers.cshtml", model);
+                return JsonRedirectResult(Models.JsonResult.JsonActionResultType.ActionSuccess, Url.Action("Index", "Home"));
+            }
+            catch (CreateCustomerException)
+            {
+                model.SetAlert("An error occurred while attempting to create a Customer", AlertType.ServerError);
+                ModelState.AddModelError("CreateCustomerException", "An error occurred while attempting to add a customer");
+
+                return JsonResultWithView(Models.JsonResult.JsonActionResultType.ActionError, "~/Views/Customer/Partials/_AddCustomerForm.cshtml", model);
+            }
         }
 
         [HttpGet]
@@ -58,7 +67,7 @@ namespace Cephalus.Maldives.Web.Controllers
             {
                 model.SetAlert("Changes could not be saved!", AlertType.ClienError);
 
-                return View(model);
+                return JsonResultWithView(Models.JsonResult.JsonActionResultType.ActionError, "~/Views/Customer/Partials/_EditCustomerForm.cshtml", model);
             }
 
             _customerService.Update(model.ToCustomer());
@@ -67,28 +76,20 @@ namespace Cephalus.Maldives.Web.Controllers
         }
 
         [HttpPost, AjaxOnly]
-        public ActionResult AddCustomer(AddCustomerModel model)
+        public ActionResult AddTag(AddTagModel model)
         {
             if (!ModelState.IsValid)
             {
-                model.SetAlert("You entered invalid Customer data", AlertType.ClienError);
+                model.SetAlert("Tag could not be added", AlertType.ClienError);
 
-                return JsonResultWithView(Models.JsonResult.JsonActionResultType.ActionError, "~/Views/Home/Partials/_AddCustomerForm.cshtml", model);
+                return JsonResultWithView(Models.JsonResult.JsonActionResultType.ActionError, "", model);
             }
-            
-            try
-            {
-                _customerService.Create(model.ToCustomer());
 
-                return JsonRedirectResult(Models.JsonResult.JsonActionResultType.ActionSuccess, Url.Action("Index", "Home"));
-            }
-            catch(CreateCustomerException)
-            {
-                model.SetAlert("An error occurred while attempting to create a Customer", AlertType.ServerError);
-                ModelState.AddModelError("CreateCustomerException", "An error occurred while attempting to add a customer");
+            var tagConvertter = new AddTagConverter();
 
-                return JsonResultWithView(Models.JsonResult.JsonActionResultType.ActionError, "~/Views/Home/Partials/_AddCustomerForm.cshtml", model);
-            }
+            _customerService.AddTag(tagConvertter.ToTag(model));
+
+            return JsonRedirectResult(Models.JsonResult.JsonActionResultType.ActionSuccess, Url.Action("EditCustomer", "Customer", new { id = model.CustomerGuid }));
         }
     }
 }

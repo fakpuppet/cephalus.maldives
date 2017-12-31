@@ -6,12 +6,14 @@ namespace Cephalus.Maldives.Core.Services
 {
     public interface ICustomerService
     {
-        void Create(Customer customer);
+        Guid AddTag(Tag tag);
 
-        void Update(Customer customer);
+        void Create(Customer customer);
 
         Customer Get(Guid id);
 
         IEnumerable<Customer> GetByTags(IEnumerable<TagType> tagType, string[] keyWords);
+
+        void Update(Customer customer);
     }
 }

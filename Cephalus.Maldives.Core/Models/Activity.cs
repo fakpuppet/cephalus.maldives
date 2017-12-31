@@ -19,7 +19,7 @@ namespace Cephalus.Maldives.Core.Models
                 return string.Join(", ", Activities?.Select(a => a.Name));
             }
 
-            return string.Empty;
+            return Name;
         }
     }
 }

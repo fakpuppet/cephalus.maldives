@@ -6,10 +6,10 @@
 <h3>@ViewBag.Message</h3>
 
 <div class="left-col">
-    <div class="left-col-inner">
-        @Html.Partial("~/Views/Home/Partials/_EditCustomerForm.cshtml", Model)
+    <div class="left-col-inner" id="editCustomerFormContainer">
+        @Html.Partial("~/Views/Customer/Partials/_EditCustomerForm.cshtml", Model)
     </div>
 </div>
 @section scripts {
-    @Scripts.Render("~/bundles/AddCustomer")
+    @Scripts.Render("~/bundles/EditCustomer")
 }

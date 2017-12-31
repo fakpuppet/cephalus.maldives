@@ -57,6 +57,7 @@
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Ethnicity.cs" />
     <Compile Include="Models\Food.cs" />
+    <Compile Include="Models\ITag.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\Religion.cs" />
     <Compile Include="Models\SpecificActivity.cs" />

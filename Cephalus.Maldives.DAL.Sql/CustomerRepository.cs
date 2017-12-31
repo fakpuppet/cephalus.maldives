@@ -17,6 +17,35 @@ namespace Cephalus.Maldives.DAL.Sql
             // CreateDummyData();
         }
 
+        public Guid AddTag(Tag tag)
+        {
+            return ExecuteOnContext(context => 
+            {
+                context.Entry(tag).State = EntityState.Added;
+
+                context.SaveChanges();
+
+                return tag.TagId;
+            });
+        }
+
+        public void Create(Customer customer)
+        {
+            ExecuteOnContext(context =>
+            {
+                var dto = ConvertToDto(customer);
+
+                foreach (var tag in dto.Tags)
+                {
+                    context.Entry(tag).State = EntityState.Added;
+                }
+
+                context.Entry(dto).State = EntityState.Added;
+
+                return context.SaveChanges();
+            });
+        }
+
         public void CreateDummyData()
         {
             using (var context = new MaldivesContext(_connectionString))
@@ -67,20 +96,14 @@ namespace Cephalus.Maldives.DAL.Sql
             }
         }
 
-        public void Create(Customer customer)
+        public Customer Get(long id)
         {
-            ExecuteOnContext(context => 
+            return ExecuteOnContext(context =>
             {
-                var dto = ConvertToDto(customer);
+                var customer = context.Customers
+                    .FirstOrDefault(c => c.Id == id);
 
-                foreach (var tag in dto.Tags)
-                {
-                    context.Entry(tag).State = EntityState.Added;
-                }
-
-                context.Entry(dto).State = EntityState.Added;
-
-                return context.SaveChanges();
+                return ConvertFromDto(customer);
             });
         }
 
@@ -133,17 +156,6 @@ namespace Cephalus.Maldives.DAL.Sql
             });
         }
 
-        private Customer Get(Expression<Func<CustomerDto, bool>> predicate)
-        {
-            return ExecuteOnContext(context =>
-            {
-                var customer = context.Customers
-                    .FirstOrDefault(predicate);
-
-                return ConvertFromDto(customer);
-            });
-        }
-
         private Customer ConvertFromDto(CustomerDto dto)
         {
             return new Customer()
@@ -152,16 +164,6 @@ namespace Cephalus.Maldives.DAL.Sql
                 BirthDate = dto.BirthDate,
                 CustomerId = dto.CustomerId,
                 Tags = dto.Tags?.Select(t => ConvertTagFromDto(t))
-            };
-        }
-
-        private CustomerDto ConvertToDto(Customer customer)
-        {
-            return new CustomerDto
-            {
-                CustomerNumber = customer.CustomerNumber,
-                BirthDate = customer.BirthDate,
-                Tags = customer.Tags?.Select(t => ConvertTagToTagDto(t)).ToArray()
             };
         }
 
@@ -175,10 +177,30 @@ namespace Cephalus.Maldives.DAL.Sql
             return TagDtoFactory.TagDtoFromTag(tag);
         }
 
+        private CustomerDto ConvertToDto(Customer customer)
+        {
+            return new CustomerDto
+            {
+                CustomerNumber = customer.CustomerNumber,
+                BirthDate = customer.BirthDate,
+                Tags = customer.Tags?.Select(t => ConvertTagToTagDto(t)).ToArray()
+            };
+        }
+
         private TagTypeDto FromTagType(TagType tagType)
         {
             return (TagTypeDto)tagType;
         }
 
+        private Customer Get(Expression<Func<CustomerDto, bool>> predicate)
+        {
+            return ExecuteOnContext(context =>
+            {
+                var customer = context.Customers
+                    .FirstOrDefault(predicate);
+
+                return ConvertFromDto(customer);
+            });
+        }
     }
 }

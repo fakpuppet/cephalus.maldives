@@ -17,6 +17,11 @@ namespace Cephalus.Maldives.Services
             _customerRepository = customerRepository;
         }
 
+        public Guid AddTag(Tag tag)
+        {
+            return _customerRepository.AddTag(tag);
+        }
+
         public void Create(Customer customer)
         {
             _customerRepository.Create(customer);
@@ -27,11 +32,6 @@ namespace Cephalus.Maldives.Services
             return _customerRepository.Get(id);
         }
 
-        public void Update(Customer customer)
-        {
-            throw new NotImplementedException();
-        }
-
         public IEnumerable<Customer> GetByTags(IEnumerable<TagType> tagType, string[] keyWords)
         {
             var tagTypeCollection = tagType?.Any() == true ? tagType : EnumExtensions.GetValues<TagType>();
@@ -39,5 +39,9 @@ namespace Cephalus.Maldives.Services
             return _customerRepository.GetByTags(tagTypeCollection, keyWords);
         }
 
+        public void Update(Customer customer)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

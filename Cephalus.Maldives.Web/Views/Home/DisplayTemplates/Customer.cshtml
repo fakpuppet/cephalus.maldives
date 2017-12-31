@@ -16,7 +16,7 @@
                 <strong class="green-text" id="VipStatusPending_@(customerId)" style="display:none">(VIP status pending)</strong>
                 <span class="patient-number">@Html.DisplayFor(m => m.BirthDate, "DateTime")</span>
 
-                <a href="@Url.Action("EditCustomer", "Home", new { id = Model.CustomerId })" class="blue-text change-account-settings" data-customer-id="@customerId" data-customer-index="2">Account settings</a>
+                <a href="@Url.Action("EditCustomer", "Customer", new { id = Model.CustomerId })" class="blue-text change-account-settings" data-customer-id="@customerId" data-customer-index="2">Account settings</a>
                 <a href="javascript:;" class="blue-text remove-from-plan-button" data-customer-id="@customerId">Remove from Database</a>
             </span>
         </div>

@@ -2,7 +2,7 @@
 
 namespace Cephalus.Maldives.Core.Models
 {
-    public abstract class Tag
+    public class Tag : ITag
     {
         public long Id { get; set; }
 
@@ -10,8 +10,13 @@ namespace Cephalus.Maldives.Core.Models
 
         public long CustomerId { get; set; }
 
+        public Guid CustomerGuid { get; set; }
+
         public string Name { get; set; }
 
-        public abstract string Display();
+        public virtual string Display()
+        {
+            return Name;
+        }
     }
 }

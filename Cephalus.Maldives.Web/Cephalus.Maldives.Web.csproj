@@ -145,6 +145,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Converters\AddTagConverter.cs" />
+    <Compile Include="Converters\TagConverterBase.cs" />
+    <Compile Include="Models\AddTagModel.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -161,6 +164,7 @@
     <Compile Include="Models\CustomerSearchModel.cs" />
     <Compile Include="Models\CustomersModel.cs" />
     <Compile Include="Models\EditCustomerModel.cs" />
+    <Compile Include="Models\EditTagModel.cs" />
     <Compile Include="Models\IAlertingModel.cs" />
     <Compile Include="Models\JsonResult\JsonRedirectResult.cs" />
     <Compile Include="Models\JsonResult\JsonResultBase.cs" />
@@ -216,6 +220,7 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\pages\add-customer.js" />
     <Content Include="Scripts\pages\customers.js" />
+    <Content Include="Scripts\pages\edit-customer.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
@@ -253,7 +258,6 @@
     <Content Include="tsconfig.json" />
     <Content Include="Views\Home\Partials\_Toolbar.cshtml" />
     <Content Include="Views\Home\EditCustomer.cshtml" />
-    <Content Include="Views\Home\Partials\_EditCustomerForm.cshtml" />
     <Content Include="Views\Home\EditorTemplates\Activity.cshtml" />
     <Content Include="Views\Home\EditorTemplates\SpecificActivity.cshtml" />
     <Content Include="Views\Home\EditorTemplates\Tags.cshtml" />

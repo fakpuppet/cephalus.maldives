@@ -7,7 +7,7 @@ AjaxJsonResponseHandler = function () {
             }
             else if (response.JsonResultType === Constants.JsonResultType.JsonResultWithView) {
                 if (typeof handler === "function") {
-                    handler(response.ViewResult);
+                    handler(response);
                 }
             }
         }
