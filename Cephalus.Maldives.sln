@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cephalus.Maldives.Web", "Ce
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cephalus.Maldives.Common", "Cephalus.Maldives.Common\Cephalus.Maldives.Common.csproj", "{C6BEA53F-2759-4BE0-8041-4873ECDC9A9E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cephalus.Maldives.Authorization", "Cephalus.Maldives.Authorization\Cephalus.Maldives.Authorization.csproj", "{9728E626-AA1E-4D7E-A608-B013452DD270}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{C6BEA53F-2759-4BE0-8041-4873ECDC9A9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C6BEA53F-2759-4BE0-8041-4873ECDC9A9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C6BEA53F-2759-4BE0-8041-4873ECDC9A9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9728E626-AA1E-4D7E-A608-B013452DD270}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9728E626-AA1E-4D7E-A608-B013452DD270}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9728E626-AA1E-4D7E-A608-B013452DD270}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9728E626-AA1E-4D7E-A608-B013452DD270}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -12,7 +12,9 @@ namespace Cephalus.Maldives.Core.Services
 
         Customer Get(Guid id);
 
-        IEnumerable<Customer> GetByTags(IEnumerable<TagType> tagType, string[] keyWords);
+        IEnumerable<Customer> GetByTags(IEnumerable<TagType> tagTypes, string[] keyWords);
+
+        IEnumerable<Customer> GetByAny(IEnumerable<TagType> tagTypes, string[] keyWords);
 
         void Update(Customer customer);
     }

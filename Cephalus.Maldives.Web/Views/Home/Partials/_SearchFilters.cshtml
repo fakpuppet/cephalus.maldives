@@ -30,11 +30,9 @@
                         @Html.ValidationMessageFor(m => m.Tags)
                     </div>
                 </fieldset>
-
                 <fieldset class="form-row">
                     <div class="label-wrap">
-                        @*<label class="bolded" for="Email">Keyword</label>*@
-                        @Html.LabelFor(m => m.Keywords, new { @class = "bolded" })
+                       @Html.LabelFor(m => m.Keywords, new { @class = "bolded" })
                     </div>
                     <div class="long">
                         @Html.TextBoxFor(m => m.Keywords, new { @class = "in-text" })

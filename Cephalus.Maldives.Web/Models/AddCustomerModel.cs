@@ -14,6 +14,7 @@ namespace Cephalus.Maldives.Web.Models
         public string CustomerNumber { get; set; }
 
         [Display(Name = "Date of birth")]
+        [Required]
         public DateTime? BirthDate { get; set; }
 
         public IEnumerable<Tag> Tags { get; set; }

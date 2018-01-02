@@ -14,7 +14,7 @@ namespace Cephalus.Maldives.DAL.Sql
         public CustomerRepository(string connectionString)
         {
             _connectionString = connectionString;
-            // CreateDummyData();
+            //CreateDummyData();
         }
 
         public Guid AddTag(Tag tag)
@@ -126,6 +126,18 @@ namespace Cephalus.Maldives.DAL.Sql
                     .Where(c => c.CustomerNumber == customerNumber)
                     .Select(c => ConvertFromDto(c))
                     .FirstOrDefault();
+            });
+        }
+
+        public IEnumerable<Customer> GetByAny(IEnumerable<TagType> tagTypes, string[] keyWords)
+        {
+            return ExecuteOnContext(context => 
+            {
+                return context.Customers.SqlQuery("select * from dbo.Customer as c where c.CustomerNumber like '%hf%'")
+                //.Where(c => c.CustomerNumber.Intersect(keyWords)
+                .ToArray()
+                .Select(c => ConvertFromDto(c));
+                //.Union(GetByTags(tagTypes, keyWords));
             });
         }
 

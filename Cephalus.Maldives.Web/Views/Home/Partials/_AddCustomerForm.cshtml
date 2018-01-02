@@ -1,6 +1,6 @@
 ﻿@model Cephalus.Maldives.Web.Models.AddCustomerModel
 
-@using (Ajax.BeginForm("AddCustomer", "Home", new AjaxOptions()
+@using (Ajax.BeginForm("AddCustomer", "Customer", new AjaxOptions()
 {
     HttpMethod = "POST",
     OnBegin = "AddCustomerPage.OnBegin",
@@ -21,7 +21,7 @@
                     @Html.LabelFor(m => m.CustomerNumber, new { @class = "bolded" })
                 </div>
                 <div class="long">
-                    @Html.TextBoxFor(m => m.CustomerNumber, new { @class = "in-text" })
+                    @Html.TextBoxFor(m => m.CustomerNumber, new { @class = "in-text", maxlength = 10 })
                     <span class="small-text">
                         @Html.ValidationMessageFor(m => m.CustomerNumber)
                     </span>
