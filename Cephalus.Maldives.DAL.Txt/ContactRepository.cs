@@ -11,6 +11,11 @@ namespace Cephalus.Maldives.DAL.Txt
         {
         }
 
+        public Guid AddTag(Tag tag)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Create(Customer customer)
         {
             throw new NotImplementedException();
@@ -26,6 +31,16 @@ namespace Cephalus.Maldives.DAL.Txt
             throw new NotImplementedException();
         }
 
+        public Customer Get(long id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Customer> GetByAny(IEnumerable<TagType> tagTypes, string[] keyWords)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<Customer> GetByTags(IEnumerable<Tag> tags)
         {
             throw new NotImplementedException();
@@ -37,6 +52,11 @@ namespace Cephalus.Maldives.DAL.Txt
         }
 
         public IEnumerable<Customer> GetByTags(IEnumerable<TagType> tagTypes, string[] keyWords)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Customer customer)
         {
             throw new NotImplementedException();
         }

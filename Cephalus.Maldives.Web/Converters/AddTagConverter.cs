@@ -19,7 +19,7 @@ namespace Cephalus.Maldives.Web.Converters
             return new Tag
             {
                 Name = target.Name,
-                CustomerGuid = target.CustomerGuid,
+                CustomerGuid = target.CustomerGuid.Value,
             };
         }
     }

@@ -5,6 +5,7 @@ using Cephalus.Maldives.Services;
 using Cephalus.Maldives.Web.ActionFilters;
 using Cephalus.Maldives.Web.Converters;
 using Cephalus.Maldives.Web.Models;
+using Cephalus.Maldives.Web.Models.JsonResult;
 using System;
 using System.Web.Mvc;
 
@@ -75,6 +76,12 @@ namespace Cephalus.Maldives.Web.Controllers
             return Json(true);
         }
 
+        [HttpGet]
+        public ActionResult AddTag(Guid? customerId)
+        {
+            return View(new AddTagModel(customerId));
+        }
+
         [HttpPost, AjaxOnly]
         public ActionResult AddTag(AddTagModel model)
         {
@@ -82,14 +89,15 @@ namespace Cephalus.Maldives.Web.Controllers
             {
                 model.SetAlert("Tag could not be added", AlertType.ClienError);
 
-                return JsonResultWithView(Models.JsonResult.JsonActionResultType.ActionError, "", model);
+                return JsonResultWithView(JsonActionResultType.ActionError, string.Empty, model);
             }
 
             var tagConvertter = new AddTagConverter();
 
             _customerService.AddTag(tagConvertter.ToTag(model));
 
-            return JsonRedirectResult(Models.JsonResult.JsonActionResultType.ActionSuccess, Url.Action("EditCustomer", "Customer", new { id = model.CustomerGuid }));
+            return JsonRedirectResult(JsonActionResultType.ActionSuccess, 
+                Url.Action("EditCustomer", "Customer", new { id = model.CustomerGuid }));
         }
     }
 }

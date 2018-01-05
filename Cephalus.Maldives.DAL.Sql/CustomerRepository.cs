@@ -14,12 +14,13 @@ namespace Cephalus.Maldives.DAL.Sql
         public CustomerRepository(string connectionString)
         {
             _connectionString = connectionString;
-            //CreateDummyData();
+
+            DatabasePopulator.CreateDummyData(new MaldivesContext(_connectionString));
         }
 
         public Guid AddTag(Tag tag)
         {
-            return ExecuteOnContext(context => 
+            return ExecuteOnContext(context =>
             {
                 context.Entry(tag).State = EntityState.Added;
 
@@ -44,56 +45,6 @@ namespace Cephalus.Maldives.DAL.Sql
 
                 return context.SaveChanges();
             });
-        }
-
-        public void CreateDummyData()
-        {
-            using (var context = new MaldivesContext(_connectionString))
-            {
-                for (int i = 0; i < 8; i++)
-                {
-                    var country = new CountryDto()
-                    {
-                        Name = $"Sri Lanka {i}",
-                    };
-                    var ethnicity = new EthnicityDto()
-                    {
-                        Name = "Zoroastrian",
-                    };
-                    var watchBrand = new WatchBrandDto()
-                    {
-                        Name = "Panerai",
-                    };
-
-                    var hiking = new SpecificActivityDto() { Name = "Hiking" };
-                    var cycling = new SpecificActivityDto() { Name = "Cycling" };
-                    var jerking = new SpecificActivityDto() { Name = "Jerking" };
-
-                    var activity = new ActivityDto()
-                    {
-                        Activities = new List<SpecificActivityDto>() { hiking, cycling, jerking, },
-                    };
-                    var customer = new CustomerDto()
-                    {
-                        BirthDate = DateTime.Now.AddYears(-54 + i),
-                        CustomerNumber = $"HY398{i}K07K",
-                        Tags = new List<TagDto>() { ethnicity, country, watchBrand, activity }
-                    };
-
-                    context.Entry(ethnicity).State = EntityState.Added;
-                    context.Entry(country).State = EntityState.Added;
-
-                    context.Entry(activity).State = EntityState.Added;
-
-                    context.Entry(hiking).State = EntityState.Added;
-                    context.Entry(cycling).State = EntityState.Added;
-                    context.Entry(jerking).State = EntityState.Added;
-
-                    context.Entry(watchBrand).State = EntityState.Added;
-                    context.Entry(customer).State = EntityState.Added;
-                }
-                context.SaveChanges();
-            }
         }
 
         public Customer Get(long id)
@@ -131,13 +82,16 @@ namespace Cephalus.Maldives.DAL.Sql
 
         public IEnumerable<Customer> GetByAny(IEnumerable<TagType> tagTypes, string[] keyWords)
         {
-            return ExecuteOnContext(context => 
+            return ExecuteOnContext(context =>
             {
-                return context.Customers.SqlQuery("select * from dbo.Customer as c where c.CustomerNumber like '%hf%'")
-                //.Where(c => c.CustomerNumber.Intersect(keyWords)
-                .ToArray()
-                .Select(c => ConvertFromDto(c));
-                //.Union(GetByTags(tagTypes, keyWords));
+                var comparer = new EqualityComparer();
+
+                return (context.Customers
+                    .Where(c => keyWords.Any(k => c.CustomerNumber.Contains(k)))
+                    .ToArray()
+                    .Select(c => ConvertFromDto(c))
+                    .Union(GetByTags(tagTypes, keyWords)))
+                    .Distinct(comparer);
             });
         }
 
@@ -147,19 +101,18 @@ namespace Cephalus.Maldives.DAL.Sql
             {
                 var tagTypeDtos = tagTypes.Select(t => (int)t).ToArray();
                 var customers = context.Customers
-                    .Include(m => m.Tags)
                     .Where(c => tagTypeDtos.Intersect(c.Tags.Select(t => (int)t.TagType)).Any());
 
                 return customers
                     .ToArray()
-                    .Where(c => c.Tags.Where(t => tagTypeDtos.Contains((int)t.TagType)).Any(t => t.IsMatch(keyWords)))
+                    .Where(c => c.Tags.Any(t => t.IsMatch(keyWords)))
                     .Select(c => ConvertFromDto(c));
             });
         }
 
         public void Update(Customer customer)
         {
-            ExecuteOnContext<object>(context => 
+            ExecuteOnContext<object>(context =>
             {
                 context.Entry(customer).State = EntityState.Modified;
                 context.SaveChanges();
@@ -213,6 +166,24 @@ namespace Cephalus.Maldives.DAL.Sql
 
                 return ConvertFromDto(customer);
             });
+        }
+
+        private class EqualityComparer : IEqualityComparer<Customer>
+        {
+            public bool Equals(Customer x, Customer y)
+            {
+                if (x == null || y == null)
+                {
+                    return false;
+                }
+
+                return x.CustomerId == y.CustomerId;
+            }
+
+            public int GetHashCode(Customer obj)
+            {
+                return obj.CustomerId.GetHashCode();
+            }
         }
     }
 }

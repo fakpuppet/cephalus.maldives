@@ -29,7 +29,7 @@ namespace Cephalus.Maldives.Web.Controllers
         {
             var model = new CustomersModel
             {
-                Customers = _customerService.GetByTags(new TagType[0], Enumerable.Empty<string>().ToArray())
+                Customers = _customerService.GetByAny(new TagType[0], Enumerable.Empty<string>().ToArray())
             };
 
             return View(model);
@@ -49,7 +49,7 @@ namespace Cephalus.Maldives.Web.Controllers
 
             var model = new CustomersModel
             {
-                Customers = _customerService.GetByTags(searchModel.Tags, searchModel.GetKeywords())
+                Customers = _customerService.GetByAny(searchModel.Tags, searchModel.GetKeywords())
             };
 
             return PartialView("~/Views/Home/Partials/_Customers.cshtml", model);

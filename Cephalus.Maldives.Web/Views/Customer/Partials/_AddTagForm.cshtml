@@ -1,0 +1,37 @@
+﻿@model Cephalus.Maldives.Web.Models.AddTagModel
+
+@using (Ajax.BeginForm("AddTag", "Customer", new AjaxOptions()
+{
+    HttpMethod = "POST",
+    OnBegin = "AddTag.OnBegin",
+    OnSuccess = "AddTag.OnSuccess",
+    OnComplete = "AddTag.OnComplete",
+    OnFailure = "AddTag.OnFailure"
+}))
+{
+    @Html.HiddenFor(m => m.CustomerGuid)
+    <div class="left-col-container">
+        <div class="left-col-inner border-bottom">
+            <div class="inner-top style-1-a">
+                <h3 class="blue">
+                    @Model.Name
+                </h3>
+            </div>
+            <fieldset class="form-row">
+                <div class="label-wrap">
+                    @Html.LabelFor(m => m.Name, new { @class = "bolded" })
+                </div>
+                <div class="long">
+                    @Html.TextBoxFor(m => m.Name, new { @class = "in-text" })
+                    <span class="small-text">
+                        @Html.ValidationMessageFor(m => m.Name)
+                    </span>
+                </div>
+            </fieldset>
+
+            <div class="left-col-inner horizontal-align">
+                <input type="submit" class="btn btn-white btn-33" value="Save Changes" id="saveChanges" />
+            </div>
+        </div>
+    </div>
+}

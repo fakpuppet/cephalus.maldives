@@ -255,20 +255,8 @@
     <Content Include="tsconfig.json" />
     <Content Include="Views\Home\Partials\_Toolbar.cshtml" />
     <Content Include="Views\Home\EditCustomer.cshtml" />
-    <Content Include="Views\Home\EditorTemplates\Activity.cshtml" />
-    <Content Include="Views\Home\EditorTemplates\SpecificActivity.cshtml" />
-    <Content Include="Views\Home\EditorTemplates\Tags.cshtml" />
-    <Content Include="Views\Home\EditorTemplates\Tag.cshtml" />
     <Content Include="Views\Customer\EditCustomer.cshtml" />
     <Content Include="Views\Customer\Customer.cshtml" />
-    <Content Include="Views\Customer\DisplayTemplates\Activity.cshtml" />
-    <Content Include="Views\Customer\DisplayTemplates\Country.cshtml" />
-    <Content Include="Views\Customer\DisplayTemplates\Customer.cshtml" />
-    <Content Include="Views\Customer\DisplayTemplates\DateTime.cshtml" />
-    <Content Include="Views\Customer\DisplayTemplates\Ethnicity.cshtml" />
-    <Content Include="Views\Customer\DisplayTemplates\Tag.cshtml" />
-    <Content Include="Views\Customer\DisplayTemplates\Tags.cshtml" />
-    <Content Include="Views\Customer\DisplayTemplates\WatchBrand.cshtml" />
     <Content Include="Views\Customer\EditorTemplates\Activity.cshtml" />
     <Content Include="Views\Customer\EditorTemplates\SpecificActivity.cshtml" />
     <Content Include="Views\Customer\EditorTemplates\Tag.cshtml" />
@@ -276,6 +264,8 @@
     <Content Include="Views\Customer\Partials\_AddCustomerForm.cshtml" />
     <Content Include="Views\Customer\Partials\_Customers.cshtml" />
     <Content Include="Views\Customer\Partials\_EditCustomerForm.cshtml" />
+    <Content Include="Views\Customer\AddTag.cshtml" />
+    <Content Include="Views\Customer\Partials\_AddTagForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -34,12 +34,14 @@ namespace Cephalus.Maldives.Services
 
         public IEnumerable<Customer> GetByAny(IEnumerable<TagType> tagTypes, string[] keyWords)
         {
-            return _customerRepository.GetByAny(tagTypes, keyWords);
+            var tagTypeCollection = tagTypes?.Any() == true ? tagTypes : EnumExtensions.GetValues<TagType>();
+
+            return _customerRepository.GetByAny(tagTypeCollection, keyWords);
         }
 
-        public IEnumerable<Customer> GetByTags(IEnumerable<TagType> tagType, string[] keyWords)
+        public IEnumerable<Customer> GetByTags(IEnumerable<TagType> tagTypes, string[] keyWords)
         {
-            var tagTypeCollection = tagType?.Any() == true ? tagType : EnumExtensions.GetValues<TagType>();
+            var tagTypeCollection = tagTypes?.Any() == true ? tagTypes : EnumExtensions.GetValues<TagType>();
 
             return _customerRepository.GetByTags(tagTypeCollection, keyWords);
         }

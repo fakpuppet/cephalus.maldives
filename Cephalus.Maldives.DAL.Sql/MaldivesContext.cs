@@ -14,12 +14,13 @@ namespace Cephalus.Maldives.DAL.Sql
 
         static MaldivesContext()
         {
-            //Database.SetInitializer(new DropCreateDatabaseAlways<MaldivesContext>());
+            // Database.SetInitializer(new DropCreateDatabaseAlways<MaldivesContext>());
         }
 
         public MaldivesContext(string connectionString) 
             : base(connectionString)
         {
+            Customers.Include(c => c.Tags).Load();
             Tags.OfType<ActivityDto>().Include(t => t.Activities).Load();
         }
 
