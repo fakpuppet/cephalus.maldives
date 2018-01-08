@@ -114,10 +114,12 @@ namespace Cephalus.Maldives.DAL.Sql
         {
             ExecuteOnContext<object>(context =>
             {
-                context.Entry(customer).State = EntityState.Modified;
-                context.SaveChanges();
+                var dto = ConvertToDto(customer);
+                var entity = context.Customers.SingleOrDefault(e => e.Id == customer.Id);
 
-                return null;
+                context.Entry(entity).CurrentValues.SetValues(dto);
+
+                return context.SaveChanges();
             });
         }
 
@@ -125,9 +127,10 @@ namespace Cephalus.Maldives.DAL.Sql
         {
             return new Customer()
             {
+                Id = dto.Id,
+                CustomerId = dto.CustomerId,
                 CustomerNumber = dto.CustomerNumber,
                 BirthDate = dto.BirthDate,
-                CustomerId = dto.CustomerId,
                 Tags = dto.Tags?.Select(t => ConvertTagFromDto(t))
             };
         }
@@ -146,7 +149,9 @@ namespace Cephalus.Maldives.DAL.Sql
         {
             return new CustomerDto
             {
+                Id = customer.Id,
                 CustomerNumber = customer.CustomerNumber,
+                CustomerId = customer.CustomerId,
                 BirthDate = customer.BirthDate,
                 Tags = customer.Tags?.Select(t => ConvertTagToTagDto(t)).ToArray()
             };

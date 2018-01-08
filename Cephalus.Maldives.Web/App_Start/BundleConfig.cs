@@ -25,10 +25,12 @@ namespace Cephalus.Maldives.Web
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
+                      "~/Scripts/libs/bootstrap-datepicker.js",
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/bootstrap-datepicker*",
                       "~/Content/Site.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/Customers").Include(
@@ -37,9 +39,9 @@ namespace Cephalus.Maldives.Web
 
             bundles.Add(new ScriptBundle("~/bundles/AddCustomer").Include(
                     "~/Scripts/pages/add-customer.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/EditCustomer").Include(
                     "~/Scripts/pages/edit-customer.js"));
-
         }
 
         private static void RegisterSharedBunde(BundleCollection bundles)
@@ -50,8 +52,8 @@ namespace Cephalus.Maldives.Web
                          "~/Scripts/main/constants.js",
                          "~/Scripts/util/helpers/ajax-json-response-handler.js",
                          "~/Scripts/util/helpers/selectric-binder.js",
-                         "~/Scripts/util/helpers/form-helper.js"
-                ));
+                         "~/Scripts/util/helpers/datepicker-binder.js",
+                         "~/Scripts/util/helpers/form-helper.js"));
         }
     }
 }

@@ -178,6 +178,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\libs\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -209,6 +210,10 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Content\bootstrap-datepicker.css" />
+    <Content Include="Content\bootstrap-datepicker.standalone.css" />
+    <Content Include="Content\bootstrap-datepicker3.css" />
+    <Content Include="Content\bootstrap-datepicker3.standalone.css" />
     <Content Include="Scripts\libs\jquery.selectric.js" />
     <Content Include="Scripts\libs\jquery.selectric.min.js" />
     <Content Include="Scripts\main\constants.js" />
@@ -224,6 +229,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\services\data-service.js" />
     <Content Include="Scripts\util\helpers\ajax-json-response-handler.js" />
+    <Content Include="Scripts\util\helpers\datepicker-binder.js" />
     <Content Include="Scripts\util\helpers\form-helper.js" />
     <Content Include="Scripts\util\helpers\selectric-binder.js" />
     <Content Include="Web.config" />
@@ -266,6 +272,7 @@
     <Content Include="Views\Customer\Partials\_EditCustomerForm.cshtml" />
     <Content Include="Views\Customer\AddTag.cshtml" />
     <Content Include="Views\Customer\Partials\_AddTagForm.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

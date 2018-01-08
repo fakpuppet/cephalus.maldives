@@ -19,7 +19,7 @@ namespace Cephalus.Maldives.Web.Models
 
         public IEnumerable<Tag> Tags { get; set; }
 
-        public Customer ToCustomer()
+        public virtual Customer ToCustomer()
         {
             return new Customer
             {

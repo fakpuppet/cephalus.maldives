@@ -9,8 +9,9 @@ namespace Cephalus.Maldives.Web.Converters
         {
             return new EditCustomerModel
             {
-                BirthDate = customer.BirthDate,
+                Id = customer.Id,
                 CustomerId = customer.CustomerId,
+                BirthDate = customer.BirthDate,
                 CustomerNumber = customer.CustomerNumber,
                 Tags = customer.Tags
             };

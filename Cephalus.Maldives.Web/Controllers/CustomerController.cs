@@ -53,10 +53,10 @@ namespace Cephalus.Maldives.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult EditCustomer(Guid id)
+        public ActionResult EditCustomer(Guid customerId)
         {
             var converter = new EditCustomerConverter();
-            var model = converter.FromCustomer(_customerService.Get(id));
+            var model = converter.FromCustomer(_customerService.Get(customerId));
 
             return View(model);
         }

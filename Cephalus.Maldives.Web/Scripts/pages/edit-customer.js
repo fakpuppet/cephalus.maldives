@@ -2,6 +2,7 @@
 /// <reference path="../util/helpers/form-helper.js" />
 EditCustomerPage = function () {
     return {
+
         OnBegin: function () {
             var $submit = $(this).find("input[type='submit']");
 

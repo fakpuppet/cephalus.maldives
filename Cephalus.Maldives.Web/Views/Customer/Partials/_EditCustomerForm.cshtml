@@ -7,9 +7,10 @@
     OnSuccess = "EditCustomerPage.OnSuccess",
     OnComplete = "EditCustomerPage.OnComplete",
     OnFailure = "EditCustomerPage.OnFailure"
-}))
+}, new { id = "editCustomerForm", autocomplete = "off" }))
 {
     @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.CustomerId)
     <div class="left-col-container">
         <div class="left-col-inner border-bottom">
             <div class="inner-top style-1-a">
@@ -34,19 +35,11 @@
                     @Html.LabelFor(m => m.BirthDate, new { @class = "bolded" })
                 </div>
                 <div class="long">
-                    @Html.TextBoxFor(m => m.BirthDate, new { @class = "in-text" })
+                    @*@Html.TextBoxFor(m => m.BirthDate, new { @class = "in-text datepicker" })*@
+                    @Html.EditorFor(m => m.BirthDate)
                     <span class="small-text">
                         @Html.ValidationMessageFor(m => m.BirthDate)
                     </span>
-                </div>
-            </fieldset>
-
-            <fieldset class="form-row">
-                <div class="label-wrap">
-                    @Html.LabelFor(m => m.Tags, new { @class = "bolded" })
-                </div>
-                <div class="long">
-                    @Html.EditorFor(m => m.Tags)
                 </div>
             </fieldset>
 
@@ -56,3 +49,12 @@
         </div>
     </div>
 }
+
+@*<fieldset class="form-row">
+    <div class="label-wrap">
+        @Html.LabelFor(m => m.Tags, new { @class = "bolded" })
+    </div>
+    <div class="long">
+        @Html.EditorFor(m => m.Tags)
+    </div>
+</fieldset>*@
